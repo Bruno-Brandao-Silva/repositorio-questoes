@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
 
@@ -44,7 +45,7 @@ export default function Create() {
                     <button type="submit">Criar</button>
                 </div>
             </form>
-            <a href="/">Home</a>
+            <Link href="/">Home</Link>
             </div>
     )
 }

@@ -13,7 +13,7 @@ const Home: NextPage = () => {
         <input id="content" name="content" type="text" placeholder="Search"></input>
         <button type="submit" className="btn btn-search">Buscar</button>
       </form>
-      <a href="/discipline/create">/discipline/create</a>
+      <Link href="/discipline/create">/discipline/create</Link>
     </div>
   )
 }
