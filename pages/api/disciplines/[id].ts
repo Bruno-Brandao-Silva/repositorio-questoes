@@ -3,7 +3,7 @@ import { disciplines } from '../../../data'
 
 export default function disciplinesHandler(request: NextApiRequest, response: NextApiResponse) {
 
-    const id = request.query.id
+    const id = request.query.id.toString()
     const filtered = disciplines.filter((p) => p.id === id)
 
     // User with id exists

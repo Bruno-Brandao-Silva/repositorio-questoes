@@ -3,7 +3,7 @@ import database from '../../../models/database'
 import Discipline from '../../../models/discipline'
 
 export default async function disciplinesHandler(request: NextApiRequest, response: NextApiResponse) {
-    const id = request.query.id
+    const id = request.query.id.toString()
     const discipline = new Discipline('69', 'Prog', 'Alg 2', '420')
     if (id == '1') {
 
