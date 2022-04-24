@@ -1,14 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import database from '../../../models/database'
+import Discipline from '../../../models/discipline'
 
 export default async function disciplinesHandler(request: NextApiRequest, response: NextApiResponse) {
     const id = request.query.id
+    const discipline = new Discipline('69', 'Prog', 'Alg 2', '420')
     if (id == '1') {
-        database.insert({nome: 'Bruno'})
-        response.status(200)
+
+        response.status(200).json(await discipline.insertOne())
     } if (id == '2') {
-        const result = await database.collect()
-        response.status(200).json({ result })
+        response.status(200).json(await discipline.findAll())
     } else {
         response.status(200).json([0])
     }

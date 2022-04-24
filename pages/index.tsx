@@ -5,12 +5,15 @@ import styles from '../styles/Home.module.css'
 import Link from 'next/link'
 const Home: NextPage = () => {
   return (
-    <div>
-      <div className="search-bar">
-        <input type="text" placeholder="Search"></input>
-        <button type="button" className="btn btn-search" onClick={() => { }}>Buscar</button>
-      </div>
-      <a href="/api/database/">link</a>
+    <div style={{ textAlign: 'center' }}>
+      <p></p>
+      <p></p>
+      <p></p>
+      <form action="/api/disciplines/search" className="search-bar">
+        <input id="content" name="content" type="text" placeholder="Search"></input>
+        <button type="submit" className="btn btn-search">Buscar</button>
+      </form>
+      <a href="/discipline/create">/discipline/create</a>
     </div>
   )
 }

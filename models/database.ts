@@ -4,8 +4,14 @@ const uri = "mongodb+srv://MdbAdmin:" + process.env.MONGODB_PASSWORD + "@rq.dd17
 
 const client = new MongoClient(uri, { serverApi: ServerApiVersion.v1 });
 
-const db = client.db('test')
-
+const db = client.db('RepoQuest')
+function removeUndefined(obj: any = {}) {
+    return Object.keys(obj).reduce((acc: any, key: any) => {
+        const _acc = acc;
+        if (obj[key] !== undefined) _acc[key] = obj[key];
+        return _acc;
+    }, {})
+}
 export default new class database {
 
     constructor() {
@@ -35,7 +41,7 @@ export default new class database {
     async findOne(collection: string, query = {}, options = {}) {
         try {
             await client.connect()
-            const result = await db.collection(collection).findOne(query, options)
+            const result = await db.collection(collection).findOne(removeUndefined(query), options);
             return result
         } finally {
             await client.close();
@@ -45,7 +51,7 @@ export default new class database {
     async findAll(collection: string, query = {}, options = {}) {
         try {
             await client.connect()
-            const result = await db.collection(collection).find(query, options).toArray()
+            const result = await db.collection(collection).find(removeUndefined(query), options).toArray()
             return result
         } finally {
             await client.close();
@@ -55,7 +61,7 @@ export default new class database {
     async updateOne(collection: string, query = {}, update: {}, options = {}) {
         try {
             await client.connect()
-            const result = await db.collection(collection).updateOne(query, update, options)
+            const result = await db.collection(collection).updateOne(removeUndefined(query), update, options)
             return result
         } finally {
             await client.close();
@@ -65,7 +71,7 @@ export default new class database {
     async updateMany(collection: string, query = {}, update: {}, options = {}) {
         try {
             await client.connect()
-            const result = await db.collection(collection).updateMany(query, update, options)
+            const result = await db.collection(collection).updateMany(removeUndefined(query), update, options)
             return result
         } finally {
             await client.close();
@@ -75,7 +81,7 @@ export default new class database {
     async replaceOne(collection: string, query = {}, replacement: {}, options = {}) {
         try {
             await client.connect()
-            const result = await db.collection(collection).replaceOne(query, replacement, options)
+            const result = await db.collection(collection).replaceOne(removeUndefined(query), replacement, options)
             return result
         } finally {
             await client.close();
@@ -85,7 +91,7 @@ export default new class database {
     async deleteOne(collection: string, query = {}, options = {}) {
         try {
             await client.connect()
-            const result = await db.collection(collection).deleteOne(query, options)
+            const result = await db.collection(collection).deleteOne(removeUndefined(query), options)
             return result
         } finally {
             await client.close();
@@ -95,7 +101,7 @@ export default new class database {
     async deleteMany(collection: string, query = {}, options = {}) {
         try {
             await client.connect()
-            const result = await db.collection(collection).deleteMany(query, options)
+            const result = await db.collection(collection).deleteMany(removeUndefined(query), options)
             return result
         } finally {
             await client.close();
