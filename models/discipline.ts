@@ -7,7 +7,7 @@ export default class Discipline {
     description: string;
     length: string;
 
-    constructor(id: any, name: any, description: any, length: any) {
+    constructor(id: any=undefined, name: any=undefined, description: any=undefined, length: any=undefined) {
         this.id = id;
         this.name = name;
         this.description = description;
