@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import useSWR from 'swr'
 import DisciplineComponent from '../components/Discipline'
+import Header from '../components/Header'
 import Discipline from '../models/discipline'
 
 const fetcher = async (url: any) => await fetch(url).then((res) => res.json())
@@ -19,16 +20,13 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div style={{ textAlign: 'center' }}>
-        <p></p>
-        <p></p>
-        <p></p>
+        <Header/>
         <form action="/api/disciplines/search" className="search-bar">
           <input id="content" name="content" type="text" placeholder="Search"></input>
           <button type="submit" className="btn btn-search">Buscar</button>
         </form>
-        <Link href="/discipline/create">/discipline/create</Link>
-        <br></br>
-        <Link href="/api/auth/login">Login</Link>
+        <h3><Link href="/discipline/create">/discipline/create</Link></h3>
+        {/* <h3><Link href="/api/auth/login">Login</Link></h3> */}
       </div>
       <div>
         <ul>

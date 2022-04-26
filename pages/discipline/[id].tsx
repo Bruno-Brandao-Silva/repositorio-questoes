@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
+import Header from '../../components/Header'
 
-const fetcher = async (url:string) => {
+const fetcher = async (url: string) => {
   const res = await fetch(url)
   const data = await res.json()
 
@@ -22,21 +23,24 @@ export default function Discipline() {
   if (!data) return <div>Loading...</div>
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Disciplina</th>
-          <th>Descrição</th>
-          <th>Quantidade de conteúdos</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{data.name}</td>
-          <td>{data.description}</td>
-          <td>{data.length}</td>
-        </tr>
-      </tbody>
-    </table>
+    <>
+      <Header />
+      <table>
+        <thead>
+          <tr>
+            <th>Disciplina</th>
+            <th>Descrição</th>
+            <th>Quantidade de conteúdos</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{data.name}</td>
+            <td>{data.description}</td>
+            <td>{data.length}</td>
+          </tr>
+        </tbody>
+      </table>
+    </>
   )
 }
