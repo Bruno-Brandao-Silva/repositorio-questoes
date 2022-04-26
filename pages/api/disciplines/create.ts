@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-
 import Discipline from '../../../models/discipline'
 
 export default async function handler(request: NextApiRequest, response: NextApiResponse) {
@@ -10,9 +9,7 @@ export default async function handler(request: NextApiRequest, response: NextApi
         const length = request.body.length.toString()
         const discipline = new Discipline(id, name, description, length)
         response.status(200).json(await discipline.insertOne())
-
     } else {
         response.status(404).json([0])
     }
-
 }

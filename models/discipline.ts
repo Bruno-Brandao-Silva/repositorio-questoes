@@ -7,7 +7,7 @@ export default class Discipline {
     description: string;
     length: string;
 
-    constructor(id: any=undefined, name: any=undefined, description: any=undefined, length: any=undefined) {
+    constructor(id: any = undefined, name: any = undefined, description: any = undefined, length: any = undefined) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -20,13 +20,20 @@ export default class Discipline {
         return database.insertMany(collection, disciplines)
     }
     async findOne(discipline = this) {
-
-        console.log(discipline)
-        return database.findOne(collection, discipline)
-
+        return await database.findOne(collection, discipline).then((result) => {
+            if (result) return new Discipline(result.id, result.name, result.description, result.length)
+        })
     }
-    findAll() {
-        return database.findAll(collection)
+    async findAll() {
+        return await database.findAll(collection).then((result) => {
+            if (result) {
+                let _result: any = []
+                result.forEach(element => {
+                    _result.push(new Discipline(element.id, element.name, element.description, element.length))
+                });
+                return _result;
+            }
+        })
     }
     updateOne(discipline = this, newDiscipline: Discipline) {
         return database.updateOne(collection, discipline, newDiscipline)

@@ -1,11 +1,10 @@
 import Link from 'next/link'
-import Discipline from '../models/discipline'
 
-export default function DisciplineComponent(discipline: Discipline) {
+export default function DisciplineComponent(discipline:any) {
     return (
         <li>
-            <Link href="/person/[id]" as={`/person/${discipline.id}`}>
-                <a>{discipline.name} </a>
+            <Link href="/discipline/[id]" as={`/discipline/${discipline.discipline.id}`}>
+                <a>{discipline.discipline.name}</a>
             </Link>
         </li>
     )

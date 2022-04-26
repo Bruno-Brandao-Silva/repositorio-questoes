@@ -1,6 +1,6 @@
 import { Document, MongoClient, ServerApiVersion, WithId } from 'mongodb';
 
-const uri = "mongodb+srv://MdbAdmin:" + process.env.MONGODB_PASSWORD + "@rq.dd17a.mongodb.net/reposQuest?retryWrites=true&w=majority";
+const uri = "mongodb+srv://" + process.env.MONGODB_USERNAME + ":" + process.env.MONGODB_PASSWORD + "@rq.dd17a.mongodb.net/reposQuest?retryWrites=true&w=majority";
 
 const client = new MongoClient(uri, { serverApi: ServerApiVersion.v1 });
 
