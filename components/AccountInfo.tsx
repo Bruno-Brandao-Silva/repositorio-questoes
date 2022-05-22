@@ -2,9 +2,7 @@ import { NextComponentType } from "next";
 import Link from "next/link";
 import styles from "../styles/AccountInfo.module.css"
 const AccountInfo: NextComponentType = () => {
-
-
-
+    var status = 'unauthenticated'
     if (status == "authenticated") {
         return (
             <>
@@ -19,7 +17,7 @@ const AccountInfo: NextComponentType = () => {
                     </div>
                     <div style={{ position: "fixed", bottom: 0, right: 15 + 'px' }}>
 
-                        Conectado como {''}
+                        Conectado como { }
 
                     </div>
                 </div>
@@ -29,7 +27,7 @@ const AccountInfo: NextComponentType = () => {
         return (
             <div className={styles.AccountInfo}>
                 <div>
-                    <img className={styles.ProfileImg} src="/profile-placeholder.png" onClick={() => {}}></img>
+                    <img className={styles.ProfileImg} src="/profile-placeholder.png" onClick={() => { }}></img>
                 </div>
                 <div className={styles.AccountBtn}>
                     <a className={styles.LoginBtn} onClick={() => { }}>Entrar</a>
