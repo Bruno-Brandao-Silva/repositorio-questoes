@@ -20,7 +20,7 @@ export default function Create() {
         <>
             <Header />
             <div style={{ textAlign: 'center' }}>
-                <form method='post' action="/api/disciplines/create" style={{ textAlign: 'center' }}>
+                <form method='post' action="/api/disciplines/" style={{ textAlign: 'center' }}>
                     <p></p>
                     <p></p>
                     <div>

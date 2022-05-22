@@ -1,0 +1,107 @@
+/* LIMITAR CONFIGURAÇÕES VISUAIS ATUAIS PARA ATUAREM APENAS ME 720p OU ACIMA */
+.Header {
+	display: flex;
+	flex-direction: column;
+	background-color: darkgrey;
+	text-align: center;
+	justify-content: center;
+	align-content: center;
+	align-items: center;
+	height: 10vw;
+}
+
+.LogoA {
+	align-self: center;
+}
+
+.LogoIcon {
+	display: block;
+	align-self: center;
+	height: 2vw;
+	width: 19vw;
+}
+
+.SearchContainer {
+	display: flex;
+	margin-right: 5vw;
+	margin-left: 5vw;
+}
+
+.SearchInput {
+	width: 30vw;
+	height: 2.5vw;
+	align-self: center;
+	border-radius: 5px;
+	border-style: none;
+	font-size: 1.3vw;
+}
+
+.SearchBtn {
+	background-color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 2.5vw;
+	height: 2.5vw;
+	align-self: center;
+	border-radius: 5px;
+	border-style: none;
+	margin-left: -2.5vw;
+}
+
+.SearchBtn:hover {
+	background-color: rgb(199, 199, 199);
+}
+
+.SearchIcon {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+.UpperSideHeader {
+	display: flex;
+	min-width: 100%;
+	max-width: 100%;
+
+	height: 7vw;
+	text-align: center;
+	justify-content: center;
+	align-content: center;
+	align-items: center;
+	padding-left: 11vw;
+	padding-right: 11vw;
+}
+
+.NavBar {
+	display: flex;
+	min-width: 100%;
+	padding-left: 11vw;
+	padding-right: 11vw;
+	background-color: rgb(153, 153, 153);
+}
+
+.NavBarTr {
+	display: flex;
+	justify-content: space-around;
+	align-items: stretch;
+	min-width: 100%;
+	flex-direction: row;
+	height: 3vw;
+}
+
+.NavBarUl {
+	display: flex;
+	width: 100%;
+	padding: 0;
+	text-align: center;
+	justify-content: center;
+	align-content: center;
+	align-items: center;
+	background-color: rgb(153, 153, 153);
+}
+
+.NavBarUl:hover {
+
+	background-color: rgb(128, 128, 128);
+}
+
