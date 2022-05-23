@@ -1,27 +1,53 @@
 .Container {
-    display: flex;
-    position: fixed;
-    background-color: rgba(128, 128, 128, 0.397);
-    align-items: center;
-    justify-content: center;
-    width:100%;
-    height: 100%;
-    top: 0%;
-    left: 0%;
-    transform: scale(3);
+  display: flex;
+  position: fixed;
+  background-color: rgba(128, 128, 128, 0.397);
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  top: 0%;
+  left: 0%;
+  transform: scale(2);
 }
 
-.Loader {
-    animation: is-rotating 1s infinite;
-    width: 50px;
-    height: 50px;
-    border-radius: 100%;
-    border: 6px solid #e5e5e5;
-    border-top-color: lightslategray;
+.Ring1,
+.Ring2,
+.Ring3,
+.Ring4 {
+  position: absolute;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 100%;
+  border: 3px solid;
+  animation: rotating linear infinite;
+  animation-duration: 1s;
 }
 
-@keyframes is-rotating {
-    to {
-        transform: rotate(1turn)
-    }
+.Ring1 {
+  border-color: goldenrod;
+  animation-delay: 0.1s;
+}
+
+.Ring2 {
+  border-color: crimson;
+  animation-delay: 0.2s;
+
+}
+
+.Ring3 {
+  border-color: cornflowerblue;
+  animation-delay: 0.3s;
+
+}
+
+.Ring4 {
+  border-color: seagreen;
+  animation-delay: 0.4s;
+}
+
+@keyframes rotating {
+  to {
+    transform: rotateZ(90turn) rotateX(1turn);
+  }
 }

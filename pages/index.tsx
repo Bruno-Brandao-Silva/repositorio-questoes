@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import useSWR from 'swr'
+import DefaultHead from '../components/DefaultHead'
 import DisciplineComponent from '../components/Discipline'
 import Header from '../components/Header'
 import InfinityLoading from '../components/InfinityLoading'
@@ -21,22 +22,19 @@ const Home: NextPage = () => {
   }
   return (
     <>
-      <Head>
-        <title>RepoQuest</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <div style={{ textAlign: 'center' }}>
-        <Header />
-        <h3><Link href="/discipline/create">/discipline/create</Link></h3>
-      </div>
+      <DefaultHead />
+      <Header />
       <div>
-        <ul>
-          {
-            data.map((p: any, i: any) => (
-              console.log(p),
-              <DisciplineComponent key={i} discipline={p} />
-            ))}
-        </ul>
+        <h3><Link href="/discipline/create">/discipline/create</Link></h3>
+        <div>
+          <ul>
+            {
+              data.map((p: any, i: any) => (
+                console.log(p),
+                <DisciplineComponent key={i} discipline={p} />
+              ))}
+          </ul>
+        </div>
       </div>
     </>
   )

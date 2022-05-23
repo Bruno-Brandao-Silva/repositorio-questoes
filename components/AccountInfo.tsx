@@ -27,7 +27,7 @@ const AccountInfo: NextComponentType = () => {
         return (
             <div className={styles.AccountInfo}>
                 <div>
-                    <img className={styles.ProfileImg} src="/profile-placeholder.png" onClick={() => { }}></img>
+                    <img className={styles.ProfileImg} alt={'Profile'} src="/profile-placeholder.png" onClick={() => { }}></img>
                 </div>
                 <div className={styles.AccountBtn}>
                     <a className={styles.LoginBtn} onClick={() => { }}>Entrar</a>
