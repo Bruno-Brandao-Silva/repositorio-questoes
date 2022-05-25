@@ -1,10 +1,12 @@
 const MongoClient = require("mongodb").MongoClient;
 const GridFSBucket = require("mongodb").GridFSBucket;
 
-const url = process.env.MONGODB_URL!
-const database = process.env.MONGODB_DATABASE!
-const imgBucket = process.env.MONGODB_IMG_BUCKET!
-
+//const url = process.env.MONGODB_URL!
+// const database = process.env.MONGODB_DATABASE!
+// const imgBucket = process.env.MONGODB_IMG_BUCKET!
+const url = "mongodb+srv://" + process.env.MONGODB_USERNAME + ":" + process.env.MONGODB_PASSWORD + "@rq.dd17a.mongodb.net"
+const database = 'image'
+const imgBucket = 'imgBucket'
 const mongoClient = new MongoClient(url);
 
 const getListFiles = async (req: any, res: any) => {
@@ -22,7 +24,7 @@ const getListFiles = async (req: any, res: any) => {
 
         const cursor = images.find({});
 
-        if ((await cursor.count()) === 0) {
+        if ((await cursor.countDocuments()) === 0) {
             return res.status(500).send({
                 message: "No files found!",
             });

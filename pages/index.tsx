@@ -12,14 +12,14 @@ import Discipline from '../models/discipline'
 const fetcher = async (url: any) => await fetch(url).then((res) => res.json())
 
 const Home: NextPage = () => {
-  const { data, error } = useSWR('/api/disciplines', fetcher)
-  if (error) {
-    console.log(error)
-    return <div>Failed to load</div>
-  }
-  if (!data) {
-    return <InfinityLoading active={true} />
-  }
+    const { data, error } = useSWR('/api/discipline', fetcher)
+    if (error) {
+      console.log(error)
+      return <div>Failed to load</div>
+    }
+    if (!data) {
+      return <InfinityLoading active={true} />
+    }
   return (
     <>
       <DefaultHead />

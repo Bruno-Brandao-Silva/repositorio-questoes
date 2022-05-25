@@ -2,9 +2,9 @@ import { NextApiRequest, NextApiResponse } from "next";
 const MongoClient = require("mongodb").MongoClient;
 const GridFSBucket = require("mongodb").GridFSBucket;
 
-const url = process.env.MONGODB_URL!
-const database = process.env.MONGODB_DATABASE!
-const imgBucket = process.env.MONGODB_IMG_BUCKET!
+const url = "mongodb+srv://" + process.env.MONGODB_USERNAME + ":" + process.env.MONGODB_PASSWORD + "@rq.dd17a.mongodb.net"
+const database = 'image'
+const imgBucket = 'imgBucket'
 
 const mongoClient = new MongoClient(url);
 
@@ -13,27 +13,29 @@ export default async function download(request: NextApiRequest, response: NextAp
 
     try {
         await mongoClient.connect();
-
         const databaseClient = mongoClient.db(database);
         const bucket = new GridFSBucket(databaseClient, {
             bucketName: imgBucket,
         });
+        const downloadStream = bucket.openDownloadStreamByName(name)
+        return new Promise(() => {
+            downloadStream.on("data", function (data: any) {
+                response.status(200).write(data);
+            });
 
-        let downloadStream = bucket.openDownloadStreamByName(name);
+            downloadStream.on("error", function (err: any) {
+                response.status(404).send({ message: "Cannot download the Image!" });
+            });
 
-        downloadStream.on("data", function (data: any) {
-            return response.status(200).write(data);
-        });
+            downloadStream.on("end", () => {
+                mongoClient.close();
+                response.end();
+            });
+        })
 
-        downloadStream.on("error", function (err: any) {
-            return response.status(404).send({ message: "Cannot download the Image!" });
-        });
-
-        downloadStream.on("end", () => {
-            return response.end();
-        });
     } catch (error: any) {
-        return response.status(500).send({
+        mongoClient.close();
+        response.status(500).send({
             message: error.message,
         });
     }

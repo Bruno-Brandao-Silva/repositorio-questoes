@@ -2,7 +2,7 @@ import util from "util";
 import multer from "multer";
 import { GridFsStorage } from "multer-gridfs-storage";
 
-const url = "mongodb+srv://" + process.env.MONGODB_USERNAME + ":" + process.env.MONGODB_PASSWORD + "@rq.dd17a.mongodb.net/reposQuest?retryWrites=true&w=majority";
+const url = "mongodb+srv://" + process.env.MONGODB_USERNAME + ":" + process.env.MONGODB_PASSWORD + "@rq.dd17a.mongodb.net"
 const database = 'image'
 const imgBucket = 'imgBucket'
 
@@ -26,5 +26,5 @@ var storage = new GridFsStorage({
 
 //var uploadFiles = multer({ storage: storage }).single("file");
 var uploadFiles = multer({ storage }).array("file", 10);
-var uploadFilesMiddleware = util.promisify(uploadFiles);
-export default uploadFilesMiddleware;
+var uploadFilesMiddleware =  util.promisify(uploadFiles);
+export default  uploadFilesMiddleware;

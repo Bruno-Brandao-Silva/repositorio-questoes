@@ -1,17 +1,22 @@
+import { ObjectId } from "mongodb";
 import database from "./database";
+
 const collection = 'Discipline'
 
 export default class Discipline {
-    id: string;
+    _id: ObjectId;
     name: string;
     description: string;
     length: string;
+    image: string;
 
-    constructor(id: any = undefined, name: any = undefined, description: any = undefined, length: any = undefined) {
-        this.id = id;
+    constructor(_id: ObjectId | any = undefined, name: string | any = undefined,
+        description: string | any = undefined, length: string | any = undefined, image: string | any = undefined) {
+        this._id = _id;
         this.name = name;
         this.description = description;
         this.length = length;
+        this.image = image;
     }
 
     insertOne(discipline = this) {
@@ -24,7 +29,7 @@ export default class Discipline {
 
     async findOne(discipline = this) {
         return await database.findOne(collection, discipline).then((result) => {
-            if (result) return new Discipline(result.id, result.name, result.description, result.length)
+            if (result) return new Discipline(result.id, result.name, result.description, result.length, result.image)
         })
     }
 
@@ -33,27 +38,27 @@ export default class Discipline {
             if (result) {
                 let _result: any = []
                 result.forEach(element => {
-                    _result.push(new Discipline(element.id, element.name, element.description, element.length))
+                    _result.push(new Discipline(element.id, element.name, element.description, element.length, element.image))
                 });
                 return _result;
             }
         })
     }
 
-    updateOne(discipline = this, newDiscipline: Discipline) {
-        return database.updateOne(collection, discipline, newDiscipline)
+    async updateOne(discipline = this, newDiscipline: Discipline) {
+        return await database.updateOne(collection, discipline, newDiscipline)
     }
 
-    updateMany(discipline = this, newDiscipline: Discipline) {
-        return database.updateMany(collection, discipline, newDiscipline)
+    async updateMany(discipline = this, newDiscipline: Discipline) {
+        return await database.updateMany(collection, discipline, newDiscipline)
     }
 
-    deleteOne(discipline = this) {
-        return database.deleteOne(collection, discipline)
+    async deleteOne(discipline = this) {
+        return await database.deleteOne(collection, discipline)
     }
 
-    deleteMany(discipline = this) {
-        return database.deleteMany(collection, discipline)
+    async deleteMany(discipline = this) {
+        return await database.deleteMany(collection, discipline)
     }
 }
 

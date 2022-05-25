@@ -9,8 +9,8 @@ export default function Header() {
         <header className={styles.Header}>
             <div className={styles.UpperSideHeader}>
                 <Link href="/"><a className={styles.LogoA} ><img className={styles.LogoIcon} src="/logo.png" alt="Logo"></img></a></Link>
-                <form action='/api/disciplines/search' method='get' className={styles.SearchContainer}>
-                    <input type="text" name='content' placeholder="Search" value={searchText} onChange={e => {
+                <form action='/api/discipline/search' method='get' className={styles.SearchContainer}>
+                    <input type="text" name='name' placeholder="Search" value={searchText} onChange={e => {
                         setSearchText(e.target.value);
                     }} className={styles.SearchInput}></input>
                     <button type='submit' className={styles.SearchBtn}><img className={styles.SearchIcon} src='/lupa-icon.svg' alt="Search Icon"></img></button>
@@ -19,8 +19,8 @@ export default function Header() {
             </div>
             <div className={styles.NavBar}>
                 <div className={styles.NavBarTr}>
-                    <Link href="/produto/"><a className={styles.NavBarUl}>Produto</a></Link>
-                    <Link href="/api/image/files"><a className={styles.NavBarUl}>Files</a></Link>
+                    <Link href="/api/discipline/"><a className={styles.NavBarUl}>Disciplinas</a></Link>
+                    <Link href="/api/image/"><a className={styles.NavBarUl}>Images</a></Link>
                     <div className={styles.NavBarUl}>Item 3</div>
                     <div className={styles.NavBarUl}>Item 4</div>
                     <div className={styles.NavBarUl}>Item 5</div>

@@ -3,12 +3,12 @@ import Discipline from '../../../models/discipline'
 
 export default async function disciplinesHandler(request: NextApiRequest, response: NextApiResponse) {
 
-    const id = request.query.id.toString()
-    const filtered = await new Discipline(id).findOne()
+    const _id = request.query._id.toString()
+    const filtered = await new Discipline(_id).findOne()
     
     if (filtered) {
         response.status(200).json(filtered)
     } else {
-        response.status(404).json({ message: `Disciplina com o id: ${id} não encontrada.` })
+        response.status(404).json({ message: `Disciplina com o id: ${_id} não encontrada.` })
     }
 }

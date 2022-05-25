@@ -13,7 +13,7 @@ const fetcher = async (url: string) => {
 }
 
 export default function Discipline() {
-  const { query } = useRouter()
+  const { query } = useRouter() 
   const { data, error } = useSWR(
     () => query.id && `/api/disciplines/${query.id}`,
     fetcher
