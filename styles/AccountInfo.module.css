@@ -2,8 +2,9 @@
     align-self: center;
     align-items: center;
     display: flex;
-    width: 19vw;
-    justify-content: flex-end;
+    height: calc(138*0.03vw);
+	width: calc(587*0.03vw);
+    justify-content: center;
 }
 
 .SeparatorBar {

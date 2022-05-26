@@ -25,12 +25,12 @@ const Home: NextPage = () => {
       <DefaultHead />
       <Header />
       <div>
-        <h3><Link href="/discipline/create">/discipline/create</Link></h3>
+        <h3><Link href="/discipline/">/discipline/create</Link></h3>
         <div>
           <ul>
             {
               data.map((p: any, i: any) => (
-                console.log(p),
+                // console.log(p),
                 <DisciplineComponent key={i} discipline={p} />
               ))}
           </ul>

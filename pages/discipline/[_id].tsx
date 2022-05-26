@@ -1,6 +1,9 @@
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 import useSWR from 'swr'
+import DefaultHead from '../../components/DefaultHead'
 import Header from '../../components/Header'
+import InfinityLoading from '../../components/InfinityLoading'
 
 const fetcher = async (url: string) => {
   const res = await fetch(url)
@@ -13,17 +16,25 @@ const fetcher = async (url: string) => {
 }
 
 export default function Discipline() {
-  const { query } = useRouter() 
+  const [status, setStatus] = useState(true)
+  const { query } = useRouter()
   const { data, error } = useSWR(
-    () => query.id && `/api/disciplines/${query.id}`,
+    () => query._id && `/api/discipline/${query._id}`,
     fetcher
   )
 
   if (error) return <div>{error.message}</div>
-  if (!data) return <div>Loading...</div>
+  if (!data) {
+    return <>
+      <DefaultHead />
+      <Header />
+      <InfinityLoading active={true} />
+    </>
+  }
 
   return (
     <>
+      <DefaultHead />
       <Header />
       <table>
         <thead>
@@ -44,3 +55,4 @@ export default function Discipline() {
     </>
   )
 }
+

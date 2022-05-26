@@ -4,16 +4,15 @@ import { ObjectId } from 'mongodb'
 
 export default class Account {
 
-    _id: ObjectId
-    name: string
-    username: string
-    password: string
-    accountType: string
-    profileImage: string
+    _id?: ObjectId
+    name?: string
+    username?: string
+    password?: string
+    accountType?: string
+    profileImage?: string
 
-    constructor(_id: ObjectId | any = undefined, name: string | any = undefined,
-        username: string | any = undefined, password: string | any = undefined,
-        accountType: string | any = undefined, profileImage: string | any = undefined) {
+    constructor(_id?: ObjectId, name?: string, username?: string, password?: string,
+        accountType?: string, profileImage?: string) {
         this._id = _id
         this.name = name
         this.username = username

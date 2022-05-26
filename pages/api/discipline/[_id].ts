@@ -1,9 +1,10 @@
+import { ObjectId } from 'mongodb'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import Discipline from '../../../models/discipline'
 
 export default async function disciplinesHandler(request: NextApiRequest, response: NextApiResponse) {
 
-    const _id = request.query._id.toString()
+    const _id = new ObjectId(request.query._id.toString())
     const filtered = await new Discipline(_id).findOne()
     
     if (filtered) {

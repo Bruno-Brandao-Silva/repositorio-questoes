@@ -17,8 +17,8 @@
 .LogoIcon {
 	display: block;
 	align-self: center;
-	height: 2vw;
-	width: 19vw;
+	height: calc(138*0.03vw);
+	width: calc(587*0.03vw);
 }
 
 .SearchContainer {

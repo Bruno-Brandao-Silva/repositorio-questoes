@@ -4,14 +4,14 @@ import database from "./database";
 const collection = 'Discipline'
 
 export default class Discipline {
-    _id: ObjectId;
-    name: string;
-    description: string;
-    length: string;
-    image: string;
+    _id?: ObjectId;
+    name?: string;
+    description?: string;
+    length?: string;
+    image?: string[];
 
-    constructor(_id: ObjectId | any = undefined, name: string | any = undefined,
-        description: string | any = undefined, length: string | any = undefined, image: string | any = undefined) {
+    constructor(_id?: ObjectId, name?: string,
+        description?: string, length?: string, image?: string[]) {
         this._id = _id;
         this.name = name;
         this.description = description;
@@ -29,7 +29,7 @@ export default class Discipline {
 
     async findOne(discipline = this) {
         return await database.findOne(collection, discipline).then((result) => {
-            if (result) return new Discipline(result.id, result.name, result.description, result.length, result.image)
+            if (result) return new Discipline(result._id, result.name, result.description, result.length, result.image)
         })
     }
 
@@ -38,7 +38,7 @@ export default class Discipline {
             if (result) {
                 let _result: any = []
                 result.forEach(element => {
-                    _result.push(new Discipline(element.id, element.name, element.description, element.length, element.image))
+                    _result.push(new Discipline(element._id, element.name, element.description, element.length, element.image))
                 });
                 return _result;
             }

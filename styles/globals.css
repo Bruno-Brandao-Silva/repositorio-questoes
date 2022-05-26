@@ -13,4 +13,26 @@ a {
 
 * {
   box-sizing: border-box;
+	outline: none;
+
+}
+
+button {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5vw;
+  height: 2vw;
+  font-size: 1.1vw;
+  align-self: center;
+  border-radius: 5px;
+  border-style: none;
+  margin-top: 1vw;
+  margin-bottom: 1vw;
+  font-weight: 545;
+}
+
+button:hover {
+  background-color: lightgray;
 }
