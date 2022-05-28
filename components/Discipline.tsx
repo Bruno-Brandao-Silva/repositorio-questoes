@@ -9,12 +9,16 @@ type Props = {
     length: string
     imageFilesName: string[]
 }
-export default function DisciplineComponent(props: Props | Discipline) {
+export default function DisciplineComponent(props: Props | Discipline | any) {
     const [imageIndex, setImageIndex] = useState(0)
     var image: string[] = []
     if (props.imageFilesName) {
         for (let i = 0; i < props.imageFilesName.length; i++) {
-            image.push(window.location.origin + '/api/image/' + props.imageFilesName[i])
+            if (props.isPreview) {
+                image.push(props.imageFilesName[i])
+            } else {
+                image.push(window.location.origin + '/api/image/' + props.imageFilesName[i])
+            }
         }
     }
     const PreviousImageButton = () => {
@@ -29,9 +33,6 @@ export default function DisciplineComponent(props: Props | Discipline) {
             }
         }
     }
-    // if (image) {
-    //     image[imageIndex] = window.location.origin + '/api/image/files/' + image[imageIndex]
-    // }
     return (
         <div className={styles.ContainerPreview}>
             <fieldset className={styles.FieldsetPreview}>
