@@ -2,7 +2,8 @@
 .Header {
 	display: flex;
 	flex-direction: column;
-	background-color: darkgrey;
+	/* background: linear-gradient(to right, #1e0046, #69245b); */
+	background-color: rgba(0, 0, 0, 0.15);
 	text-align: center;
 	justify-content: center;
 	align-content: center;
@@ -73,11 +74,11 @@
 }
 
 .NavBar {
+	background-color: rgba(0, 0, 0, 0.05);
 	display: flex;
 	min-width: 100%;
 	padding-left: 11vw;
 	padding-right: 11vw;
-	background-color: rgb(153, 153, 153);
 }
 
 .NavBarTr {
@@ -97,11 +98,10 @@
 	justify-content: center;
 	align-content: center;
 	align-items: center;
-	background-color: rgb(153, 153, 153);
+	font-size: 1.3vw;
+	color: rgba(255, 255, 255, 0.8);
 }
 
 .NavBarUl:hover {
-
-	background-color: rgb(128, 128, 128);
+	background-color: rgba(0, 0, 0, 0.203);
 }
-

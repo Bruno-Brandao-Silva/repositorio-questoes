@@ -8,15 +8,15 @@ export default class Discipline {
     name?: string;
     description?: string;
     length?: string;
-    image?: string[];
+    imageFilesName?: string[];
 
     constructor(_id?: ObjectId, name?: string,
-        description?: string, length?: string, image?: string[]) {
+        description?: string, length?: string, imageFilesName?: string[]) {
         this._id = _id;
         this.name = name;
         this.description = description;
         this.length = length;
-        this.image = image;
+        this.imageFilesName = imageFilesName;
     }
 
     insertOne(discipline = this) {
@@ -29,7 +29,7 @@ export default class Discipline {
 
     async findOne(discipline = this) {
         return await database.findOne(collection, discipline).then((result) => {
-            if (result) return new Discipline(result._id, result.name, result.description, result.length, result.image)
+            if (result) return new Discipline(result._id, result.name, result.description, result.length, result.imageFilesName)
         })
     }
 
@@ -38,7 +38,7 @@ export default class Discipline {
             if (result) {
                 let _result: any = []
                 result.forEach(element => {
-                    _result.push(new Discipline(element._id, element.name, element.description, element.length, element.image))
+                    _result.push(new Discipline(element._id, element.name, element.description, element.length, element.imageFilesName))
                 });
                 return _result;
             }
