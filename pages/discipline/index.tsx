@@ -114,7 +114,7 @@ export default function Create() {
                             <button type="button" onClick={e => handleCreate(e)}>Criar</button>
                         </div>
                     </form>
-                    <DisciplineComponent name={name} description={description} length={length} image={image} />
+                    <DisciplineComponent name={name} description={description} length={length} imageFilesName={image} />
                 </div >
             </section>
         </>

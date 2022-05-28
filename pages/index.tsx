@@ -12,14 +12,14 @@ import Discipline from '../models/discipline'
 const fetcher = async (url: any) => await fetch(url).then((res) => res.json())
 
 const Home: NextPage = () => {
-    const { data, error } = useSWR('/api/discipline', fetcher)
-    if (error) {
-      console.log(error)
-      return <div>Failed to load</div>
-    }
-    if (!data) {
-      return <InfinityLoading active={true} />
-    }
+  const { data, error } = useSWR('/api/discipline', fetcher)
+  if (error) {
+    console.log(error)
+    return <div>Failed to load</div>
+  }
+  if (!data) {
+    return <InfinityLoading active={true} />
+  }
   return (
     <>
       <DefaultHead />
@@ -27,14 +27,14 @@ const Home: NextPage = () => {
       <div>
         <h3><Link href="/discipline/">/discipline/create</Link></h3>
         <div>
-          <ul>
+          <>
             {
               data.map((p: any, i: any) => (
                 // console.log(p),
-                <DisciplineComponent key={i} discipline={p} />
+                <DisciplineComponent key={i}  {...p} />
               ))
-              }
-          </ul>
+            }
+          </>
         </div>
       </div>
     </>
