@@ -105,6 +105,48 @@
     text-align: center;
 }
 
+.ImageControlBox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.PreviousImageButton,
+.NextImageButton {
+    width: 2vw;
+    height: 2vw;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    transform: scale(1.5);
+}
+
+.Bar1,
+.Bar2 {
+    width: 37.5%;
+    height: 15%;
+    background-color: black;
+
+}
+
+.Bar1 {
+    transform: rotate(45deg)
+}
+
+.Bar2 {
+    transform: rotate(-45deg)
+}
+
+.PreviousImageButton {
+    transform: rotate(180deg) scale(1.5);
+}
+
 .ImageContainerPreview {
     display: flex;
     height: 12vw;
@@ -123,7 +165,8 @@
 .LabelName {
     max-width: 10vw;
     margin-top: 1vw;
-    min-height: 2vw;
+    min-height: 3vw;
+    font-size: 1.5vw;
     font-weight: bold;
     overflow: hidden;
     text-overflow: ellipsis;
