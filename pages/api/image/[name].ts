@@ -8,6 +8,29 @@ const imgBucket = 'imgBucket'
 
 const mongoClient = new MongoClient(url);
 
+export async function getStaticPaths() {
+    return {
+        paths: [
+            {
+                query: {
+                    name: '1653753295349-Naofumi_4k_1080p.png'
+                }
+            }
+        ],
+        fallback: 'blocking'
+    };
+}
+
+export async function getStaticProps(context: any) {
+    const name = context.params.name;
+    return {
+        request: {
+            query: {
+                name: name
+            }
+        }
+    }
+}
 export default async function download(request: NextApiRequest, response: NextApiResponse) {
     const name = request.query.name.toString()
 

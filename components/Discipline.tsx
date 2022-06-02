@@ -1,7 +1,10 @@
 import Link from 'next/link'
 import { useState } from 'react'
+import useSWR from 'swr'
 import Discipline from '../models/discipline'
 import styles from '../styles/DisciplineCad.module.css'
+
+const fetcher = async (url: any) => await fetch(url).then((res) => res)
 
 type Props = {
     name: string
@@ -9,7 +12,38 @@ type Props = {
     length: string
     imageFilesName: string[]
 }
+export async function getStaticPaths() {
+    return {
+        fallback: 'blocking'
+    }
+}
+// This function gets called at build time on server-side.
+// It won't be called on client-side, so you can even do
+// direct database queries.
+export async function getStaticProps(context: any) {
+    // Call an external API endpoint to get posts.
+    // You can use any data fetching library
+    // const res = await fetch('https://.../posts')
+    // const posts = await res.json()
+
+    // By returning { props: { posts } }, the Blog component
+    // will receive `posts` as a prop at build time
+    const name = context.params.name
+    const description = context.params.description
+    const length = context.params.length
+    const imageFilesName = context.params.imageFilesName
+    return {
+        props: {
+            name: name,
+            description: description,
+            length: length,
+            imageFilesName: imageFilesName
+        }
+    }
+}
+// posts will be populated at build time by getStaticProps()
 export default function DisciplineComponent(props: Props | Discipline | any) {
+
     const [imageIndex, setImageIndex] = useState(0)
     var image: string[] = []
     if (props.imageFilesName) {
@@ -17,6 +51,9 @@ export default function DisciplineComponent(props: Props | Discipline | any) {
             if (props.isPreview) {
                 image.push(props.imageFilesName[i])
             } else {
+                // const { data, error } = useSWR('/api/image/' + props.imageFilesName[i], fetcher)
+                // console.log(data)
+                // console.log(error)
                 image.push(window.location.origin + '/api/image/' + props.imageFilesName[i])
             }
         }
