@@ -9,7 +9,7 @@ import Header from '../components/Header'
 import InfinityLoading from '../components/InfinityLoading'
 import Discipline from '../models/discipline'
 
-const fetcher = async (url: any) => await fetch(url).then((res) => res.json())
+const fetcher = async (url: string) => await fetch(url).then((res) => res.json())
 
 const Home: NextPage = () => {
   const { data, error } = useSWR('/api/discipline', fetcher)

@@ -55,7 +55,7 @@ export default function DisciplineComponent(props: { discipline: Props | Discipl
                             <div className={styles.Bar2}></div>
                         </div>
                         <div className={styles.ImageContainerPreview}>
-                            <img className={styles.ImagePreview} src={image?.[imageIndex] || 'discipline-placeholder.png'}></img>
+                            <img className={styles.ImagePreview} alt={props.discipline.name} src={image?.[imageIndex] || 'discipline-placeholder.png'}></img>
                         </div>
                         <div className={styles.NextImageButton} onClick={NextImageButton}>
                             <div className={styles.Bar1}></div>
@@ -82,7 +82,7 @@ export default function DisciplineComponent(props: { discipline: Props | Discipl
                             <div className={styles.Bar2}></div>
                         </div>
                         <div className={styles.ImageContainerPreview}>
-                            <img className={styles.ImagePreview} src={image?.[imageIndex] || 'discipline-placeholder.png'}></img>
+                            <img className={styles.ImagePreview} alt={props.discipline.name} src={image?.[imageIndex] || 'discipline-placeholder.png'}></img>
                         </div>
                         <div className={styles.NextImageButton} onClick={NextImageButton}>
                             <div className={styles.Bar1}></div>
