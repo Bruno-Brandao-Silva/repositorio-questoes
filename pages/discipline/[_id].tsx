@@ -5,7 +5,7 @@ import DefaultHead from '../../components/DefaultHead'
 import Header from '../../components/Header'
 import InfinityLoading from '../../components/InfinityLoading'
 
-const fetcher = async (url: string) => {
+const fetcher2 = async (url: string) => {
   const res = await fetch(url)
   const data = await res.json()
 
@@ -14,16 +14,24 @@ const fetcher = async (url: string) => {
   }
   return data
 }
+const fetcher = async (url: string) => await fetch(url).then((res) => { return res.json() }).catch(res => { throw new Error(res.message) })
 
 export default function Discipline() {
   const [status, setStatus] = useState(true)
   const { query } = useRouter()
   const { data, error } = useSWR(
     () => query._id && `/api/discipline/${query._id}`,
-    fetcher
+    fetcher2
   )
 
-  if (error) return <div>{error.message}</div>
+  if (error) {
+    return <>
+      <DefaultHead />
+      <Header />
+      <h1>Error</h1>
+      <p>{error.message}</p>
+    </>
+  }
   if (!data) {
     return <>
       <DefaultHead />
