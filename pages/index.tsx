@@ -30,7 +30,6 @@ const Home: NextPage = () => {
           <>
             {
               data.map((p: any, i: any) => (
-                // console.log(p),
                 <DisciplineComponent key={i}  discipline={p} />
               ))
             }
