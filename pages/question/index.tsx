@@ -15,12 +15,14 @@ export default function Questions() {
     if (!data) {
         return <InfinityLoading active={true} />
     }
+    const page: any = []
+    data.map((question: Question, index: number) => {
+        page.push(<h1 key={index}>{JSON.stringify(question)}</h1>)
+    })
     return <>
         <DefaultHead />
         <Header />
         <h1>Questões</h1>
-        {data.map((question: Question, index: number) => {
-            return <h1>{JSON.stringify(question)}</h1>
-        })}
+        {page}
     </>
 }

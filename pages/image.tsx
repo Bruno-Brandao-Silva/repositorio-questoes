@@ -19,7 +19,7 @@ const ImagePage: NextPage = () => {
     const page: any = []
     var images: any = []
     data.map((img: any, index: number) => {
-        images.push(<img key={index} src={img.url} />)
+        images.push(<img key={index} alt={img.name} src={img.url} />)
         if(index % 2 === 0 && index !== 0) {
             page.push(<div key={index} className={styles.Page}>{images}</div>)
             images = []
