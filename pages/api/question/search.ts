@@ -1,15 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import Discipline from '../../../models/discipline'
+import Question from '../../../models/question'
 
 export default async function handler(request: NextApiRequest, response: NextApiResponse) {
-        const name: string = request.query.name.toString()
-        var discipline = new Discipline()
-        discipline.name = name
-        const res = await discipline.findOne()
+        const title: string = request.query.name.toString()
+        var question = new Question()
+        question.title = title
+        const res = await question.findOne()
         if (res) {
-                response.status(200).redirect(`/discipline/${res._id}`)
+                response.status(200).redirect(`/question/${res._id}`)
         } else {
-                response.status(200).redirect(`/discipline/nothing-was-found`)
+                response.status(404).end()
         }
-
 }

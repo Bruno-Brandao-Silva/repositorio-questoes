@@ -61,4 +61,3 @@ export default class Discipline {
         return await database.deleteMany(collection, discipline)
     }
 }
-

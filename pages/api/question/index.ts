@@ -1,10 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import Discipline from '../../../models/discipline'
+import { title } from 'process';
+import Question from '../../../models/question'
 
 export default async function handler(request: NextApiRequest, response: NextApiResponse) {
   if (request.method === 'GET') {
     try {
-      const result = await new Discipline().findAll();
+      const result = await new Question().findAll();
       response.status(200).json(result)
     } catch (err) {
       response.status(500).json(err)
@@ -12,12 +13,12 @@ export default async function handler(request: NextApiRequest, response: NextApi
   }
   else if (request.method === 'POST') {
     try {
-      const { name, description, length, imageFilesName } = request.body
-      console.log(imageFilesName)
-      const discipline = new Discipline(undefined, name, description, length, imageFilesName)
-      console.log(discipline)
+      const { title, description, content, imageFilesName } = request.body
+      // console.log(imageFilesName)
+      const question = new Question(undefined, title, description, content, imageFilesName)
+      // console.log(question)
 
-      const resp = await discipline.insertOne()
+      const resp = await question.insertOne()
       response.status(200).json(resp)
     } catch (err) {
       response.status(500).json(err)
