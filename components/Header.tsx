@@ -20,8 +20,8 @@ export default function Header() {
             <div className={styles.NavBar}>
                 <div className={styles.NavBarTr}>
                     <Link href="/api/discipline/"><a className={styles.NavBarUl}>Disciplinas</a></Link>
+                    <Link href="/api/question/"><a className={styles.NavBarUl}>Item 3</a></Link>
                     <Link href="/api/image/"><a className={styles.NavBarUl}>Images</a></Link>
-                    <div className={styles.NavBarUl}>Item 3</div>
                     <div className={styles.NavBarUl}>Item 4</div>
                     <div className={styles.NavBarUl}>Item 5</div>
                 </div>
