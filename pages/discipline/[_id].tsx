@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import useSWR from 'swr'
 import DefaultHead from '../../components/DefaultHead'
+import DisciplineComponent from '../../components/Discipline'
 import Header from '../../components/Header'
 import InfinityLoading from '../../components/InfinityLoading'
 import styles from '../../styles/Discipline.module.css'
@@ -45,15 +46,17 @@ export default function Discipline() {
     <>
       <DefaultHead />
       <Header />
-      <div className={styles.Container}>
-        <div className={styles.ImageContainer}>
-          <img src={'../api/image/' + data.imageFilesName[0]} alt={data.name} />
-        </div>
-        <div className={styles.TitleContainer}>
-          <label>{data.name}</label>
-        </div>
-        <div className={styles.DescriptionContainer}>
-          <label>{data.description}</label>
+      <div className={styles.ContainerBlock}>
+        <div className={styles.ContainerFlex}>
+          <div className={styles.ImageContainer}>
+            <img src={'../api/image/' + data.imageFilesName[0]} alt={data.name} />
+          </div>
+          <div className={styles.TitleContainer}>
+            <label>{data.name}</label>
+          </div>
+          <div className={styles.DescriptionContainer}>
+            <label>{data.description}</label>
+          </div>
         </div>
       </div>
     </>

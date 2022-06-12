@@ -31,6 +31,7 @@ const ImagePage: NextPage = () => {
     return (<>
         <DefaultHead />
         <Header />
+        <h1>Imagens</h1>
         <div className={styles.ImageContainer}>
             {page}
         </div>

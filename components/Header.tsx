@@ -21,7 +21,7 @@ export default function Header() {
                 <div className={styles.NavBarTr}>
                     <Link href="/discipline/"><a className={styles.NavBarUl}>Disciplinas</a></Link>
                     <Link href="/question/"><a className={styles.NavBarUl}>Questões</a></Link>
-                    <Link href="/image/"><a className={styles.NavBarUl}>Images</a></Link>
+                    <Link href="/image/"><a className={styles.NavBarUl}>Imagens</a></Link>
                     <Link href="/discipline/create"><a className={styles.NavBarUl}>Criar Disciplina</a></Link>
                     <Link href="/question/create"><a className={styles.NavBarUl}>Criar Questão</a></Link>
                 </div>

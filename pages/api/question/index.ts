@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { title } from 'process';
 import Question from '../../../models/question'
 
 export default async function handler(request: NextApiRequest, response: NextApiResponse) {
@@ -14,9 +13,7 @@ export default async function handler(request: NextApiRequest, response: NextApi
   else if (request.method === 'POST') {
     try {
       const { title, description, content, imageFilesName } = request.body
-      // console.log(imageFilesName)
       const question = new Question(undefined, title, description, content, imageFilesName)
-      // console.log(question)
 
       const resp = await question.insertOne()
       response.status(200).json(resp)
