@@ -12,7 +12,6 @@ export default function Create() {
     const [status, setStatus] = useState(false)
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
-    const [length, setLength] = useState('')
     const [imageInput, setImageInput] = useState("")
     const [imageFiles, setImageFiles] = useState<FileList>()
     const [image, setImage] = useState<string[]>([])
@@ -40,7 +39,7 @@ export default function Create() {
                 formData.append('file', imageFiles[i])
             }
             setStatus(true)
-            fetch('api/image/upload', {
+            fetch('../api/image/upload', {
                 method: "POST",
                 body: formData,
             }).then(res => res.json())
@@ -61,7 +60,7 @@ export default function Create() {
                     }
                     const encodedBody = formBody.join("&");
 
-                    fetch('api/discipline/', {
+                    fetch('../api/discipline/', {
                         method: "POST",
                         redirect: 'follow',
                         headers: {
@@ -100,21 +99,17 @@ export default function Create() {
                         </div>
                         <div className={styles.InputContainer}>
                             <label>Descrição</label>
-                            <input className={styles.InputText} name="description" type="text" value={description} onChange={e => setDescription(e.target.value)}></input>
-                        </div>
-                        <div className={styles.InputContainer}>
-                            <label>Tamanho</label>
-                            <input className={styles.InputText} name="length" type="text" value={length} onChange={e => setLength(e.target.value)}></input>
+                            <textarea className={styles.InputTextArea} rows={3} name="description" value={description} onChange={e => setDescription(e.target.value)}></textarea>
                         </div>
                         <div className={styles.InputContainer}>
                             <label>Imagem da disciplina</label>
-                            <input className={styles.InputImage} name='image' type='file' accept='image/*' multiple value={imageInput} onChange={e => handleImageInput(e)}></input>
+                            <input className={styles.InputImage} name='image' type='file' accept='image/png' value={imageInput} onChange={e => handleImageInput(e)}></input>
                         </div>
                         <div >
                             <button type="button" onClick={e => handleCreate(e)}>Criar</button>
                         </div>
                     </form>
-                    <DisciplineComponent discipline={{ name: name, description: description, length: length, imageFilesName: image }} isPreview={true} />
+                    <DisciplineComponent discipline={{ name: name, description: description, imageFilesName: image }} isPreview={true} />
                 </div >
             </section>
         </>

@@ -4,6 +4,7 @@ import useSWR from 'swr'
 import DefaultHead from '../../components/DefaultHead'
 import Header from '../../components/Header'
 import InfinityLoading from '../../components/InfinityLoading'
+import styles from '../../styles/Discipline.module.css'
 
 const fetcher2 = async (url: string) => {
   const res = await fetch(url)
@@ -44,22 +45,17 @@ export default function Discipline() {
     <>
       <DefaultHead />
       <Header />
-      <table>
-        <thead>
-          <tr>
-            <th>Disciplina</th>
-            <th>Descrição</th>
-            <th>Quantidade de conteúdos</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{data.name}</td>
-            <td>{data.description}</td>
-            <td>{data.length}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div className={styles.Container}>
+        <div className={styles.ImageContainer}>
+          <img src={'../api/image/' + data.imageFilesName[0]} alt={data.name} />
+        </div>
+        <div className={styles.TitleContainer}>
+          <label>{data.name}</label>
+        </div>
+        <div className={styles.DescriptionContainer}>
+          <label>{data.description}</label>
+        </div>
+      </div>
     </>
   )
 }

@@ -7,15 +7,13 @@ export default class Discipline {
     _id?: ObjectId;
     name?: string;
     description?: string;
-    length?: string;
     imageFilesName?: string[];
 
     constructor(_id?: ObjectId, name?: string,
-        description?: string, length?: string, imageFilesName?: string[]) {
+        description?: string, imageFilesName?: string[]) {
         this._id = _id;
         this.name = name;
         this.description = description;
-        this.length = length;
         this.imageFilesName = imageFilesName;
     }
 
@@ -29,7 +27,7 @@ export default class Discipline {
 
     async findOne(discipline = this) {
         return await database.findOne(collection, discipline).then((result) => {
-            if (result) return new Discipline(result._id, result.name, result.description, result.length, result.imageFilesName)
+            if (result) return new Discipline(result._id, result.name, result.description, result.imageFilesName)
         })
     }
 
@@ -38,7 +36,7 @@ export default class Discipline {
             if (result) {
                 let _result: any = []
                 result.forEach(element => {
-                    _result.push(new Discipline(element._id, element.name, element.description, element.length, element.imageFilesName))
+                    _result.push(new Discipline(element._id, element.name, element.description, element.imageFilesName))
                 });
                 return _result;
             }

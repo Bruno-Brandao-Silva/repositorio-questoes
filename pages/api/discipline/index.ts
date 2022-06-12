@@ -12,9 +12,9 @@ export default async function handler(request: NextApiRequest, response: NextApi
   }
   else if (request.method === 'POST') {
     try {
-      const { name, description, length, imageFilesName } = request.body
+      const { name, description, imageFilesName } = request.body
       console.log(imageFilesName)
-      const discipline = new Discipline(undefined, name, description, length, imageFilesName)
+      const discipline = new Discipline(undefined, name, description, [imageFilesName])
       console.log(discipline)
 
       const resp = await discipline.insertOne()
