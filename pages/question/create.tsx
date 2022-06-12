@@ -1,16 +1,12 @@
-import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { useState } from 'react'
-import useSWR from 'swr'
 import DefaultHead from '../../components/DefaultHead'
-import DisciplineComponent from '../../components/Discipline'
 import Header from '../../components/Header'
 import InfinityLoading from '../../components/InfinityLoading'
-import styles from '../../styles/DisciplineCad.module.css'
+import styles from '../../styles/QuestionCad.module.css'
 
 export default function Create() {
     const [status, setStatus] = useState(false)
-    const [name, setName] = useState('')
+    const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [content, setContent] = useState('')
     const [imageInput, setImageInput] = useState("")
@@ -40,44 +36,32 @@ export default function Create() {
                 formData.append('file', imageFiles[i])
             }
             setStatus(true)
-            fetch('api/image/upload', {
-                method: "POST",
-                body: formData,
-            }).then(res => res.json())
-                .then(res => {
-                    if (res.files) setImage(res.files[0].host + res.files[0].filename)
-                    console.log(res.files)
-                    const data: any = { name, description, length }
-                    const formBody = [];
-                    for (var property in data) {
-                        var encodedKey = encodeURIComponent(property);
-                        var encodedValue = encodeURIComponent(data[property]);
-                        formBody.push(encodedKey + "=" + encodedValue);
-                    }
-                    for (let i = 0; res.files && i < res.files.length; i++) {
-                        var encodedKey = encodeURIComponent('imageFilesName');
-                        var encodedValue = encodeURIComponent(res.files[i].filename);
-                        formBody.push(encodedKey + "=" + encodedValue);
-                    }
-                    const encodedBody = formBody.join("&");
+            const data: any = { title: title, description, length }
+            const formBody = [];
+            for (var property in data) {
+                var encodedKey = encodeURIComponent(property);
+                var encodedValue = encodeURIComponent(data[property]);
+                formBody.push(encodedKey + "=" + encodedValue);
+            }
 
-                    fetch('api/discipline/', {
-                        method: "POST",
-                        redirect: 'follow',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-                        },
-                        body: encodedBody,
-                    }).then(res => {
-                        if (!res.url) window.location.href = res.url
-                    }).catch(error => {
-                        console.log(error)
-                        setStatus(false)
-                    });
-                }).catch(error => {
-                    console.log(error)
-                    setStatus(false)
-                }).finally(() => setStatus(false));
+            const encodedBody = formBody.join("&");
+
+            fetch('../api/question/', {
+                method: "POST",
+                redirect: 'follow',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                },
+                body: encodedBody,
+            }).then(res => {
+                if (!res.url) window.location.href = res.url
+            }).catch(error => {
+                console.log(error)
+                setStatus(false)
+            }).finally(() => {
+                setStatus(false)
+            });
+
         } catch (err) {
             console.log(err);
             setStatus(false)
@@ -92,31 +76,39 @@ export default function Create() {
             <section className={styles.Section}>
                 <div className={styles.Container}>
                     <form className={styles.Form} style={{ textAlign: 'center' }}>
-                        <h2 className={styles.H3}>Cadastro de Disciplina</h2>
-
+                        <h2 className={styles.H3}>Criar de Questão</h2>
                         <div className={styles.InputContainer}>
-                            <label>Nome</label>
-                            <input className={styles.InputText} name="name" type="text" value={name} onChange={e => setName(e.target.value)}></input>
+                            <input className={styles.InputText} placeholder="Título da Questão" type="text" value={title} onChange={e => setTitle(e.target.value)}></input>
                         </div>
+                        <br/>
                         <div className={styles.InputContainer}>
-                            <label>Descrição</label>
-                            <input className={styles.InputText} name="description" type="text" value={description} onChange={e => setDescription(e.target.value)}></input>
+                            <textarea className={styles.InputTextArea} placeholder="Descrição da Questão" value={description} onChange={e => {
+                                const value = e.target.value
+                                const concat = value.split('\n')
+                                var rowCounter = concat.length;
+                                concat.forEach(row => {
+                                    console.log((row.length / 83))
+                                    row.length > 83 ? rowCounter += ((row.length / 83) | 0) : rowCounter
+                                });
+                                console.log(rowCounter)
+                                if (rowCounter <= 5) setDescription(value)
+                            }}></textarea>
                         </div>
-                        <div className={styles.InputContainer}>
+                        {/* <div className={styles.InputContainer}>
                             <label>Tamanho</label>
-                            <input className={styles.InputText} name="content" type="text" value={content} onChange={e => setContent(e.target.value)}></input>
+                            <input className={styles.InputText} type="text" value={content} onChange={e => setContent(e.target.value)}></input>
                         </div>
                         <div className={styles.InputContainer}>
                             <label>Imagem da disciplina</label>
                             <input className={styles.InputImage} name='image' type='file' accept='image/*' multiple value={imageInput} onChange={e => handleImageInput(e)}></input>
-                        </div>
+                        </div> */}
                         <div >
                             <button type="button" onClick={e => handleCreate(e)}>Criar</button>
                         </div>
                     </form>
-                    {/* <DisciplineComponent discipline={{ name: name, description: description, content: content, imageFilesName: image }} isPreview={true} /> */}
                 </div >
             </section>
+
         </>
     )
 }
