@@ -1,49 +1,28 @@
-import { ObjectId } from 'mongodb'
 import Link from 'next/link'
-import { useState } from 'react'
+import { server } from '../config'
+import Discipline from '../models/discipline'
 import Question from '../models/question'
 import styles from '../styles/QuestionCad.module.css'
 
-type Props = {
-    title: string
-    description: string
-    _id?: ObjectId
-}
-
-export default function QuestionComponent(props: { question: Props | Question, isPreview?: boolean }) {
+export default function QuestionComponent({ question, disciplines }: { question: Question, disciplines: Discipline[] }) {
     var link = ``
     var linkAs = ``
-    if (props.question._id) {
-        link = `/question/[id]`
-        linkAs = `/question/${props.question._id}`
-        return (
-            <Link href={link} as={linkAs} passHref>
-                <div className={styles.ContainerPreview}>
-                    <fieldset className={styles.FieldsetPreview}>
-                        <div className={styles.ImageControlBox}>
-                        </div>
-                        <div className={styles.Link}>
-                            <label className={styles.LabelName}>{props.question.title || 'Título'}</label>
-                            <label className={styles.LabelDescription}>{props.question.description || 'Descrição'}</label>
-                            <br></br>
-                        </div>
-                    </fieldset>
-                </div>
-            </Link >
-        )
-    } else {
-        return (
+    link = `/question/[id]`
+    linkAs = `/question/${question!._id}`
+    const disciplineData = disciplines.find(discipline => discipline._id === question.discipline)
+    return (
+        <Link href={link} as={linkAs} passHref>
             <div className={styles.ContainerPreview}>
+                <img src={`api/image/${disciplineData!.imageFilesName![0]}`}></img>
                 <fieldset className={styles.FieldsetPreview}>
-                    <div className={styles.ImageControlBox}>
-                    </div>
                     <div className={styles.Link}>
-                        <label className={styles.LabelName}>{props.question.title || 'Título'}</label>
-                        <label className={styles.LabelDescription}>{props.question.description || 'Descrição'}</label>
-                        <br></br>
+                        <label className={styles.LabelName}>{question.title || 'Título'}</label>
+                        <label className={styles.LabelDescription}>{question.description || 'Descrição'}</label>
                     </div>
                 </fieldset>
             </div>
-        )
-    }
+        </Link >
+    )
 }
+
+

@@ -38,7 +38,7 @@ export default class Question {
 
     async findOne(question = this) {
         return await database.findOne(collection, question).then((result) => {
-            if (result) return new Question(result._id, result.discipline, result.title, result.description, result.question, result.resolution, result.answers, result.imageFilesNameQuestiNameon, result.imageFilesResolution)
+            if (result) return new Question(result._id, result.discipline, result.title, result.description, result.question, result.resolution, result.answers, result.imageFilesNameQuestion, result.imageFilesResolution)
         })
     }
 
