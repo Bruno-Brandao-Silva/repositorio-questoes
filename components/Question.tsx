@@ -13,7 +13,7 @@ export default function QuestionComponent({ question, disciplines }: { question:
     return (
         <Link href={link} as={linkAs} passHref>
             <div className={styles.ContainerPreview}>
-                <img src={`api/image/${disciplineData!.imageFilesName![0]}`}></img>
+                <img alt={disciplineData!.name} src={`api/image/${disciplineData!.imageFilesName![0]}`}></img>
                 <fieldset className={styles.FieldsetPreview}>
                     <div className={styles.Link}>
                         <label className={styles.LabelName}>{question.title || 'Título'}</label>

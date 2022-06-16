@@ -42,7 +42,7 @@ export default function Question() {
     <>
       <DefaultHead />
       <Header />
-      <QuestionComponent question={data} />
+      {/* <QuestionComponent question={data} /> */}
     </>
   )
 }
