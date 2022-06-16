@@ -5,18 +5,27 @@ const collection = 'Question'
 
 export default class Question {
     _id?: ObjectId;
+    discipline?: ObjectId;
     title?: string;
     description?: string;
-    content?: any[];
-    imageFilesName?: string[];
+    question?: string;
+    resolution?: string;
+    answers?: string;
+    imageFilesNameQuestion?: string[];
+    imageFilesNameResolution?: string[];
 
-    constructor(_id?: ObjectId, title?: string,
-        description?: string, content?: any[], imageFilesName?: string[]) {
+    constructor(_id?: ObjectId, discipline?: ObjectId, title?: string,
+        description?: string, question?: string, resolution?: string,
+        answers?: string, imageFilesNameQuestion?: string[], imageFilesNameResolution?: string[]) {
         this._id = _id;
+        this.discipline = discipline;
         this.title = title;
         this.description = description;
-        this.content = content;
-        this.imageFilesName = imageFilesName;
+        this.question = question;
+        this.resolution = resolution;
+        this.answers = answers;
+        this.imageFilesNameQuestion = imageFilesNameQuestion;
+        this.imageFilesNameResolution = imageFilesNameResolution;
     }
 
     insertOne(question = this) {
@@ -29,7 +38,7 @@ export default class Question {
 
     async findOne(question = this) {
         return await database.findOne(collection, question).then((result) => {
-            if (result) return new Question(result._id, result.title, result.description, result.content, result.imageFilesName)
+            if (result) return new Question(result._id, result.discipline, result.title, result.description, result.question, result.resolution, result.answers, result.imageFilesNameQuestiNameon, result.imageFilesResolution)
         })
     }
 
@@ -38,7 +47,7 @@ export default class Question {
             if (result) {
                 let _result: any = []
                 result.forEach(element => {
-                    _result.push(new Question(element._id, element.title, element.description, element.content, element.imageFilesName))
+                    _result.push(new Question(element._id, element.discipline, element.title, element.description, element.question, element.resolution, element.answers, element.imageFilesNameQuestion, element.imageFilesNameResolution))
                 });
                 return _result;
             }

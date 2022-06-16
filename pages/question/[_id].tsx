@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import useSWR from 'swr'
-import Questions from '.'
 import DefaultHead from '../../components/DefaultHead'
 import Header from '../../components/Header'
 import InfinityLoading from '../../components/InfinityLoading'
@@ -16,9 +15,7 @@ const fetcher = async (url: string) => {
   }
   return data
 }
-const fetcher3 = async (url: string) => await fetch(url).then((res) => { return res.json() }).catch(res => { throw new Error(res.message) })
-
-export default function Discipline() {
+export default function Question() {
   const [status, setStatus] = useState(true)
   const { query } = useRouter()
   const { data, error } = useSWR(
@@ -41,7 +38,6 @@ export default function Discipline() {
       <InfinityLoading active={true} />
     </>
   }
-
   return (
     <>
       <DefaultHead />
