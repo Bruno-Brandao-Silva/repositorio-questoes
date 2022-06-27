@@ -1,0 +1,104 @@
+.Container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    margin-top: 1rem;
+}
+
+.Form {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    max-width: 25rem;
+    border-radius: 0.25rem;
+}
+
+.ProfileImg {
+    border-radius: 50%;
+    min-width: 6rem;
+    min-height: 6rem;
+}
+
+.Label {
+    align-self: left;
+}
+
+.InputBox,
+.InputBoxBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    max-width: 100%;
+    max-height: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.InputBox input:disabled {
+    animation-duration: 1.8s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+    background: rgb(105, 105, 105);
+    background: linear-gradient(to right, rgb(105, 105, 105) 0%, rgb(157, 157, 157) 50%, rgb(105, 105, 105) 100%);
+    background-size: 1000px;
+}
+
+@keyframes placeHolderShimmer {
+    0% {
+        background-position: 0 0
+    }
+
+    100% {
+        background-position: 1000px 0
+    }
+}
+
+.Input,
+.InputLabel {
+    width: 30rem;
+    height: 2.5rem;
+    align-self: center;
+    border-radius: 0.25rem;
+    border-style: none;
+    font-size: 1.3rem;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.InputLabel {
+    background-color: rgb(200, 200, 200);
+    padding: 4px 4px 4px 3px;
+    color: rgb(70, 70, 70);
+}
+
+.SubmitButton {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 5rem;
+    height: 3rem;
+    font-size: 1.1rem;
+    align-self: center;
+    border-radius: 0.25rem;
+    border-style: none;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: 545;
+}
+
+.SubmitButton:hover {
+    background-color: lightgray;
+
+}
+
+.SubmitButton:disabled {
+    background-color: lightgray;
+    color: #8b8b8b
+}

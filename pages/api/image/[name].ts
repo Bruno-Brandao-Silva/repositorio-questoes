@@ -20,6 +20,7 @@ export default async function download(request: NextApiRequest, response: NextAp
         const downloadStream = bucket.openDownloadStreamByName(name)
         return new Promise(() => {
             downloadStream.on("data", function (data: any) {
+                response.setHeader("Cache-Control", "max-age=3600, stale-while-revalidate");
                 response.status(200).write(data);
             });
 
