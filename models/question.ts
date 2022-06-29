@@ -10,13 +10,13 @@ export default class Question {
     description?: string;
     question?: string;
     resolution?: string;
-    answers?: string;
+    answers?: string[];
     imageFilesNameQuestion?: string[];
     imageFilesNameResolution?: string[];
 
     constructor(_id?: ObjectId, discipline?: ObjectId, title?: string,
         description?: string, question?: string, resolution?: string,
-        answers?: string, imageFilesNameQuestion?: string[], imageFilesNameResolution?: string[]) {
+        answers?: string[], imageFilesNameQuestion?: string[], imageFilesNameResolution?: string[]) {
         this._id = _id;
         this.discipline = discipline;
         this.title = title;

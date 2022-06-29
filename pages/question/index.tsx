@@ -17,7 +17,6 @@ export default function Questions({ questions, disciplines }: { questions: Quest
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-    console.log(server)
     const questionsData = await fetch(`${server}/api/question/`).then((res) => res.json())
     const disciplineData = await fetch(`${server}/api/discipline/`).then((res) => res.json())
 

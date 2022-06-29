@@ -50,69 +50,47 @@ export default function Create({ disciplines }: any) {
         if (discipline === '' || title === '' || description === '' || question === '' ||
             resolution === '' || answerCorrect === '' || answerIncorrect1 === '' ||
             answerIncorrect2 === '' || answerIncorrect3 === '') {
-            console.log(discipline, title, description)
             alert('Preencha todos os campos')
         } else {
             try {
+                setStatus(true)
+
                 var formData = new FormData()
                 for (let i = 0; imageFilesQuestion && i < imageFilesQuestion.length; i++) {
                     formData.append('file', imageFilesQuestion[i])
                 }
+                const questionImagesResponse = imageFilesResolution?.length! > 0 ? await fetch('../api/image/upload', {
+                    method: "POST",
+                    body: formData,
+                }).then(res => res.json()).catch(error => { throw new Error(error) }) : []
+                var formData = new FormData()
                 for (let i = 0; imageFilesResolution && i < imageFilesResolution.length; i++) {
                     formData.append('file', imageFilesResolution[i])
                 }
-                setStatus(true)
-                fetch('../api/image/upload', {
+                const resolutionImagesResponse = imageFilesResolution?.length! > 0 ? await fetch('../api/image/upload', {
                     method: "POST",
                     body: formData,
-                }).then(res => res.json())
-                    .then(res => {
-                        console.log(res.files)
-                        const answers = [answerCorrect, answerIncorrect1, answerIncorrect2, answerIncorrect3]
-                        const data: any = {
-                            discipline: discipline, title: title, description: description,
-                            question: question, resolution: resolution, answers: answers
-                        }
-                        console.log(data)
-                        const formBody = [];
-                        for (var property in data) {
-                            var encodedKey = encodeURIComponent(property);
-                            var encodedValue = encodeURIComponent(data[property]);
-                            formBody.push(encodedKey + "=" + encodedValue);
-                        }
-                        for (let i = 0; imageFilesQuestion && res.files && i < imageFilesQuestion.length; i++) {
-                            var encodedKey = encodeURIComponent('imageFilesNameQuestion');
-                            var encodedValue = encodeURIComponent(res.files[i].filename);
-                            formBody.push(encodedKey + "=" + encodedValue);
-                        }
-                        var startIndex = 0;
-                        if (imageFilesQuestion) startIndex = imageFilesQuestion.length
-                        for (let i = startIndex; imageFilesResolution && res.files && i < res.files.length; i++) {
-                            var encodedKey = encodeURIComponent('imageFilesNameResolution');
-                            var encodedValue = encodeURIComponent(res.files[i].filename);
-                            formBody.push(encodedKey + "=" + encodedValue);
-                        }
-                        const encodedBody = formBody.join("&");
+                }).then(res => res.json()).catch(error => { throw new Error(error) }) : []
+                const imageFilesNameQuestion = questionImagesResponse.files?.map((file: any) => file.filename)
+                const imageFilesNameResolution = resolutionImagesResponse.files?.map((file: any) => file.filename)
+                const answers = [answerCorrect, answerIncorrect1, answerIncorrect2, answerIncorrect3]
+                const data = { discipline, title, description, question, resolution, answers, imageFilesNameQuestion, imageFilesNameResolution }
+                fetch('../api/question/', {
+                    method: "POST",
+                    redirect: 'follow',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data),
+                }).then(res => {
+                    if (!res.url) window.location.href = res.url
+                }).catch(error => {
+                    console.log(error)
+                    setStatus(false)
+                }).finally(() => {
+                    setStatus(false)
+                });
 
-                        fetch('../api/question/', {
-                            method: "POST",
-                            redirect: 'follow',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-                            },
-                            body: encodedBody,
-                        }).then(res => {
-                            if (!res.url) window.location.href = res.url
-                        }).catch(error => {
-                            console.log(error)
-                            setStatus(false)
-                        }).finally(() => {
-                            setStatus(false)
-                        });
-                    }).catch(error => {
-                        console.log(error)
-                        setStatus(false)
-                    }).finally(() => setStatus(false));
             } catch (err) {
                 console.log(err);
                 setStatus(false)
@@ -153,7 +131,7 @@ export default function Create({ disciplines }: any) {
                                 <input className={styles.InputImage} name='image' type='file' accept='image/*' multiple value={imageInputQuestion} onChange={e => handleImageInput(e, setImageInputQuestion, setImageFilesQuestion, setImageQuestion)}></input>
                             </div>
                             <div>
-                                {imageQuestion.map((image: string, i: number) => { console.log(image); return <img key={i} alt={image} src={image}></img> })}
+                                {imageQuestion.map((image: string, i: number) => { return <img key={i} alt={image} src={image}></img> })}
                             </div>
                         </div>
 
@@ -167,7 +145,7 @@ export default function Create({ disciplines }: any) {
                                 <input className={styles.InputImage} name='image' type='file' accept='image/*' multiple value={imageInputResolution} onChange={e => handleImageInput(e, setImageInputResolution, setImageFilesResolution, setImageResolution)}></input>
                             </div>
                             <div>
-                                {imageResolution.map((image: string, i: number) => { console.log(image); return <img key={i} alt={image} src={image}></img> })}
+                                {imageResolution.map((image: string, i: number) => { return <img key={i} alt={image} src={image}></img> })}
                             </div>
                         </div>
                         <br />

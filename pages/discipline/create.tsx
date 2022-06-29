@@ -29,53 +29,30 @@ export default function Create() {
 
     const handleCreate = async (e: any) => {
         try {
+            setStatus(true)
             var formData = new FormData()
             for (let i = 0; imageFiles && i < imageFiles.length; i++) {
                 formData.append('file', imageFiles[i])
             }
-            setStatus(true)
-            fetch('../api/image/upload', {
+            const imageFilesResponse = imageFiles?.length! > 0 ? await fetch('../api/image/upload', {
                 method: "POST",
                 body: formData,
-            }).then(res => res.json())
-                .then(res => {
-                    if (res.files) setImage(res.files[0].host + res.files[0].filename)
-                    console.log(res.files)
-                    const data: any = { name, description, length }
-                    const formBody = [];
-                    for (var property in data) {
-                        var encodedKey = encodeURIComponent(property);
-                        var encodedValue = encodeURIComponent(data[property]);
-                        formBody.push(encodedKey + "=" + encodedValue);
-                    }
-                    for (let i = 0; res.files && i < res.files.length; i++) {
-                        var encodedKey = encodeURIComponent('imageFilesName');
-                        var encodedValue = encodeURIComponent(res.files[i].filename);
-                        formBody.push(encodedKey + "=" + encodedValue);
-                    }
-                    const encodedBody = formBody.join("&");
-
-                    fetch('../api/discipline/', {
-                        method: "POST",
-                        redirect: 'follow',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-                        },
-                        body: encodedBody,
-                    }).then(res => {
-                        if (!res.url) window.location.href = res.url
-                    }).catch(error => {
-                        console.log(error)
-                        setStatus(false)
-                    });
-                }).catch(error => {
-                    console.log(error)
-                    setStatus(false)
-                }).finally(() => setStatus(false));
+            }).then(res => res.json()).catch(error => { throw new Error(error) }) : []
+            const imageFilesName = imageFilesResponse.files?.map((file: any) => file.filename)
+            const data = { name, description, length, imageFilesName }
+            fetch('../api/discipline/', {
+                method: "POST",
+                redirect: 'follow',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data),
+            }).then(res => {
+                if (!res.url) window.location.href = res.url
+            }).catch(error => { throw new Error(error) }).finally(() => { setStatus(false) })
         } catch (err) {
             console.log(err);
             setStatus(false)
-
         }
     }
     return (

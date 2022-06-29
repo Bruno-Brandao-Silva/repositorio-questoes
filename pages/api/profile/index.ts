@@ -21,7 +21,7 @@ export default async function profileAPI(req: NextApiRequest, res: NextApiRespon
         if (account) {
             return res.status(400).json({ message: "Perfil já existe." })
         }
-        const { name, email, role } = req.body
+        const { email, name, role } = req.body
         const newAccount = await new Account(undefined, email, name, role).insertOne()
         res.status(200).json({ message: "Perfil criado.", account: newAccount })
 
@@ -29,7 +29,7 @@ export default async function profileAPI(req: NextApiRequest, res: NextApiRespon
         if (!account) {
             return res.status(400).json({ message: "Perfil não existe." })
         }
-        const { name, email, role } = req.body
+        const { email, name, role } = req.body
         await account.replaceOne(new Account(undefined, email, name, role))
         res.status(200).json({ message: "Perfil substituído." })
 
@@ -38,8 +38,8 @@ export default async function profileAPI(req: NextApiRequest, res: NextApiRespon
         if (!account) {
             return res.status(400).json({ message: "Perfil não existe." })
         }
-        const { name, email, role } = req.body
-        await account.updateOne(new Account(undefined, email, name, role))
+        const { _id, email, name, role } = req.body
+        await account.updateOne(new Account(new ObjectId(_id), email, name, role))
         res.status(200).json({ message: "Perfil atualizado." })
 
     } else if (req.method == "DELETE") {

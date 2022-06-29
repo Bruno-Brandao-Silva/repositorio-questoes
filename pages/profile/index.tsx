@@ -2,7 +2,7 @@ import { useSession } from 'next-auth/react'
 import styles from '../../styles/Perfil.module.css'
 import useSWR from 'swr'
 import { useState } from 'react'
-
+import InfinityLoading from '../../components/InfinityLoading'
 const fetcher = async (url: string) => await fetch(url).then(async (res) => {
 	if (res.status === 404) {
 		return res.status
@@ -20,24 +20,20 @@ export default function Perfil() {
 	const [isAluno, setIsAluno] = useState(false)
 	const [isProfessor, setIsProfessor] = useState(false)
 	const [loaded, setLoaded] = useState(false)
-	console.log(data)
+	const [isLoading, setIsLoading] = useState(false)
 	const radioHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setRole(event.target.value);
 	};
-	console.log(name, role, isAluno, isProfessor)
 	if (data && session && status == "authenticated") {
 		if (!loaded) {
-			if (data === 404) {
-				alert('Finalize seu cadastro para acessar as funcionalidades do sistema');
-			}
-			console.log(data)
 			setName(data.name ? data.name : "")
 			setRole(data.role ? data.role : "")
-			setIsAluno(data.role === "aluno" ? true : false)
-			setIsProfessor(data.role === "professor" ? true : false)
+			setIsAluno(data.role === "Aluno" ? true : false)
+			setIsProfessor(data.role === "Professor" ? true : false)
 			setLoaded(true)
 		}
 		return (<>
+			<InfinityLoading active={isLoading} />
 			<div className={styles.Container}>
 				<div className={styles.Form}>
 					<div className={styles.InputBox}>
@@ -67,22 +63,20 @@ export default function Perfil() {
 					</div>
 					<br></br>
 					<button type="button" className={styles.SubmitButton} onClick={async () => {
-						if (name.length == 0) { alert("Nome inválido"); return }
-						if (role.length == 0) { alert("Selecione uma Função"); return }
-						const dataBody: any = { email: session?.user?.email, name, role }
-						const formBody = []
-						for (var property in dataBody) {
-							var encodedKey = encodeURIComponent(property);
-							var encodedValue = encodeURIComponent(dataBody[property]);
-							formBody.push(encodedKey + "=" + encodedValue);
-						}
-						const encodedBody = formBody.join("&");
+						setIsLoading(true)
+						if (name.length == 0) { alert("Nome inválido"); setIsLoading(false); return }
+						if (role.length == 0) { alert("Selecione uma Função"); setIsLoading(false); return }
+						const dataBody = { email: session?.user?.email, name, role }
 						await fetch('/api/profile', {
-							method: data.name ? 'PATCH' : 'POST',
-							headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-							body: encodedBody
-						}).finally(() => { window.location.reload() })
-					}}>Salvar</button>
+							method: data.name ? 'PUT' : 'POST',
+							headers: { 'Content-Type': 'application/json' },
+							body: JSON.stringify(dataBody)
+						}
+						).finally(() => {
+							setIsLoading(false)
+							window.location.reload()
+						})
+					}}>{data?.name ? 'Atualizar' : 'Salvar'}</button>
 				</div>
 			</div>
 		</>)
@@ -117,7 +111,7 @@ export default function Perfil() {
 						</div>
 					</div>
 					<br></br>
-					<button disabled type="submit" className={styles.SubmitButton}>Salvar</button>
+					<button disabled type="submit" className={styles.SubmitButton}>{data?.name ? 'Atualizar' : 'Salvar'}</button>
 				</div >
 			</div>
 		</>)

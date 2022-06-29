@@ -12,9 +12,9 @@ export default async function handler(request: NextApiRequest, response: NextApi
   }
   else if (request.method === 'POST') {
     try {
-      const {discipline,  title, description, question, resolution, answers, imageFilesNameQuestion, imageFilesNameResolution } = request.body
-      const newQuestion = new Question(undefined,discipline, title, description, question, resolution, answers, [imageFilesNameQuestion], [imageFilesNameResolution])
-
+      const { discipline, title, description, question, resolution, answers, imageFilesNameQuestion, imageFilesNameResolution } = request.body
+      const newQuestion = new Question(undefined, discipline, title, description, question, resolution, answers, imageFilesNameQuestion, imageFilesNameResolution)
+      console.log(imageFilesNameQuestion, imageFilesNameResolution)
       const resp = await newQuestion.insertOne()
       response.status(200).json(resp)
     } catch (err) {

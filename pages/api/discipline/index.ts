@@ -13,10 +13,7 @@ export default async function handler(request: NextApiRequest, response: NextApi
   else if (request.method === 'POST') {
     try {
       const { name, description, imageFilesName } = request.body
-      console.log(imageFilesName)
-      const discipline = new Discipline(undefined, name, description, [imageFilesName])
-      console.log(discipline)
-
+      const discipline = new Discipline(undefined, name, description, imageFilesName)
       const resp = await discipline.insertOne()
       response.status(200).json(resp)
     } catch (err) {

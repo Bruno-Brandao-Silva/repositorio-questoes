@@ -81,7 +81,7 @@ export default new class Database {
     async replaceOne(collection: string, query = {}, replacement: {}, projection = {}) {
         try {
             await client.connect()
-            const result = await db.collection(collection).replaceOne(removeUndefined(query), replacement, projection)
+            const result = await db.collection(collection).replaceOne(removeUndefined(query), removeUndefined(replacement), projection)
             return result
         } finally {
             await client.close();
