@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             <DefaultHead />
             <Header />
             <Component {...pageProps} />
-        </SessionProvider>
+        </SessionProvider >
     );
 }
 

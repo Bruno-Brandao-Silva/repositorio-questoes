@@ -1,25 +1,16 @@
-import { NextComponentType } from "next";
+import { GetStaticProps, NextComponentType } from "next";
 import Link from "next/link";
 import styles from "../styles/AccountInfo.module.css"
 import { useSession, signIn, signOut } from "next-auth/react"
 import useSWR from "swr";
 import { useRouter } from "next/router";
+import { server } from "../config";
 
-const fetcher = async (url: string) => await fetch(url).then(async (res) => {
-    const dataTemp = await res.json()
-    const data = dataTemp[0]
-    if (res.status !== 200) {
-        return 404
-    }
-    return data
-}).catch((err) => { return err })
-
-const AccountInfo: NextComponentType = () => {
+export default function AccountInfo() {
+    const profile = async () => await fetch(`${server}/api/profile/`).then((res) => res.json())
     const router = useRouter()
     const { data: session, status } = useSession()
-    const user: any = session?.user
-    // const { data, error } = useSWR(`/api/profile`, fetcher)
-    // if (data && router.asPath !== "/profile") {
+    // const { data, error } = useSWR( () => session && `/api/profile/`, fetcher )
     //     if (data === 404) { router.push('/profile') }
     // }
     if (session && status === "authenticated") {
@@ -49,9 +40,7 @@ const AccountInfo: NextComponentType = () => {
                 <div className={styles.AccountBtn}>
                     <a className={styles.LoginBtn} onClick={() => signIn("auth0", null!, { prompt: "login" })}>Entrar</a>
                 </div>
-
             </div >
         )
-    } else { return (<></>) }
+    } else { return (<h1>Falha</h1>) }
 }
-export default AccountInfo

@@ -1,16 +1,35 @@
+import { useSession } from 'next-auth/react'
 import { useState } from 'react'
+import useSWR from 'swr'
 import DisciplineComponent from '../../components/Discipline'
 import InfinityLoading from '../../components/InfinityLoading'
 import styles from '../../styles/DisciplineCad.module.css'
 
+const fetcher = async (url: string) => await fetch(url).then(async (res) => {
+    if (res.status !== 200) {
+    }
+    const data = await res.json()
+    return data
+}).catch((err) => { console.log(err) })
+
 export default function Create() {
-    const [status, setStatus] = useState(false)
+    const [statusUseState, setStatusUseState] = useState(false)
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [imageInput, setImageInput] = useState("")
     const [imageFiles, setImageFiles] = useState<FileList>()
     const [image, setImage] = useState<string[]>([])
-
+    const { data } = useSWR(`/api/profile/`, fetcher)
+    const { data: session, status } = useSession()
+    if (status === 'loading') return <InfinityLoading active={true} />
+    if (status === 'unauthenticated') return <p>Você precisa estar logado para criar uma disciplina</p>
+    if (session) {
+        if (data) {
+            if (data.role !== 'Professor') {
+                return <p>Você precisa estar logado como professor para criar uma disciplina</p>
+            }
+        }
+    }
     const handleImageInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setImageInput(e.target.value)
         if (e.target.files) {
@@ -29,7 +48,7 @@ export default function Create() {
 
     const handleCreate = async (e: any) => {
         try {
-            setStatus(true)
+            setStatusUseState(true)
             var formData = new FormData()
             for (let i = 0; imageFiles && i < imageFiles.length; i++) {
                 formData.append('file', imageFiles[i])
@@ -49,15 +68,15 @@ export default function Create() {
                 body: JSON.stringify(data),
             }).then(res => {
                 if (!res.url) window.location.href = res.url
-            }).catch(error => { throw new Error(error) }).finally(() => { setStatus(false) })
+            }).catch(error => { throw new Error(error) }).finally(() => { setStatusUseState(false) })
         } catch (err) {
             console.log(err);
-            setStatus(false)
+            setStatusUseState(false)
         }
     }
     return (
         <>
-            <InfinityLoading active={status} />
+            <InfinityLoading active={statusUseState} />
             <section className={styles.Section}>
                 <div className={styles.Container}>
                     <form className={styles.Form} style={{ textAlign: 'center' }}>

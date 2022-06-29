@@ -34,6 +34,7 @@ export default function Perfil() {
 		}
 		return (<>
 			<InfinityLoading active={isLoading} />
+			{data === 404 ? <div className={styles.Notification}><span>!</span><p>Finalize seu perfil</p></div> : null}
 			<div className={styles.Container}>
 				<div className={styles.Form}>
 					<div className={styles.InputBox}>
@@ -53,10 +54,10 @@ export default function Perfil() {
 					<div className={styles.InputBox}>
 						<label>Função</label>
 						<div style={{ display: 'flex', gap: '1rem', width: '30rem' }}>
-							<input type='radio' id='Aluno' name='role' value={'Aluno'} onChange={() => setRole('Aluno')} defaultChecked={isAluno} />
+							<input type='radio' id='Aluno' name='role' value={'Aluno'} onChange={radioHandler} defaultChecked={isAluno} />
 							<label>Aluno</label>
 							<br></br>
-							<input type='radio' id='Professor' name='role' value={'Professor'} onChange={() => setRole('Professor')} defaultChecked={isProfessor} />
+							<input type='radio' id='Professor' name='role' value={'Professor'} onChange={radioHandler} defaultChecked={isProfessor} />
 							<label>Professor</label>
 							<br></br>
 						</div>

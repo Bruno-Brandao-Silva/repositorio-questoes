@@ -6,8 +6,7 @@ import Discipline from "../../models/discipline";
 export default function Disciplines({ disciplines }: { disciplines: Discipline[] }) {
 
     return <>
-        <h1>Disciplinas</h1>
-        <div>
+        <div className='itensContainer'>
             {
                 disciplines.map((p: any, i: any) => (
                     <DisciplineComponent key={i} discipline={p} />

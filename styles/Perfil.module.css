@@ -102,3 +102,26 @@
     background-color: lightgray;
     color: #8b8b8b
 }
+
+.Notification {
+    display: flex;
+    position: absolute;
+    left: 4rem;
+    font-size: 1.3rem;
+    gap: 0.5rem;
+}
+
+.Notification span {
+    background-color: #ff3333;
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+    text-align: center;
+    justify-content: baseline;
+    width: 2rem;
+    height: 2rem;
+    padding-top: 0.2rem;
+}
+.Notification p{
+    margin: 0;
+    font-size: 1.4rem;
+    padding-top: 0.2rem;
+}

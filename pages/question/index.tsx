@@ -1,14 +1,16 @@
 
 import { GetStaticProps } from "next"
+import { useSession } from "next-auth/react"
+import useSWR from "swr"
 import QuestionComponent from "../../components/Question"
 import { server } from "../../config"
 import Discipline from "../../models/discipline"
 import Question from "../../models/question"
 
 export default function Questions({ questions, disciplines }: { questions: Question[], disciplines: Discipline[] }) {
+    
     return <>
-        <h1>Questões</h1>
-        <div>
+        <div className="itensContainer">
             {questions.map((question: Question, index: number) => (
                 <QuestionComponent key={index} question={question} disciplines={disciplines}></QuestionComponent>
             ))}

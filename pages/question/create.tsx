@@ -3,6 +3,15 @@ import InfinityLoading from '../../components/InfinityLoading'
 import styles from '../../styles/QuestionCad.module.css'
 import { server } from '../../config'
 import { GetStaticProps } from 'next'
+import { useSession } from 'next-auth/react'
+import useSWR from 'swr'
+
+const fetcher = async (url: string) => await fetch(url).then(async (res) => {
+    if (res.status !== 200) {
+    }
+    const data = await res.json()
+    return data
+}).catch((err) => { console.log(err) })
 
 function textareaRowLimiter(e: HTMLTextAreaElement, maxRows: number, setFunction: Function) {
     const value = e.value
@@ -15,7 +24,7 @@ function textareaRowLimiter(e: HTMLTextAreaElement, maxRows: number, setFunction
 }
 
 export default function Create({ disciplines }: any) {
-    const [status, setStatus] = useState(false)
+    const [statusUseState, setStatusUseState] = useState(false)
     const [discipline, setDiscipline] = useState('')
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
@@ -31,7 +40,17 @@ export default function Create({ disciplines }: any) {
     const [imageFilesResolution, setImageFilesResolution] = useState<FileList>()
     const [imageQuestion, setImageQuestion] = useState<string[]>([])
     const [imageResolution, setImageResolution] = useState<string[]>([])
-
+    const {data} = useSWR(`/api/profile/`, fetcher)
+    const { data: session, status } = useSession()
+    if (status === 'loading') return <InfinityLoading active={true} />
+    if (status === 'unauthenticated') return <p>Você precisa estar logado para criar uma questão</p>
+    if (session) {
+        if (data) {
+            if(data.role!=='Professor'){
+                return <p>Você precisa estar logado como professor para criar uma questão</p>
+            }
+        }
+    }
     const handleImageInput = (e: React.ChangeEvent<HTMLInputElement>, setInput: Function, setFiles: Function, setImg: Function) => {
         setInput(e.target.value)
         if (e.target.files) {
@@ -53,7 +72,7 @@ export default function Create({ disciplines }: any) {
             alert('Preencha todos os campos')
         } else {
             try {
-                setStatus(true)
+                setStatusUseState(true)
 
                 var formData = new FormData()
                 for (let i = 0; imageFilesQuestion && i < imageFilesQuestion.length; i++) {
@@ -86,21 +105,21 @@ export default function Create({ disciplines }: any) {
                     if (!res.url) window.location.href = res.url
                 }).catch(error => {
                     console.log(error)
-                    setStatus(false)
+                    setStatusUseState(false)
                 }).finally(() => {
-                    setStatus(false)
+                    setStatusUseState(false)
                 });
 
             } catch (err) {
                 console.log(err);
-                setStatus(false)
+                setStatusUseState(false)
             }
         }
     }
 
     return (
         <>
-            <InfinityLoading active={status} />
+            <InfinityLoading active={statusUseState} />
             <section className={styles.Section}>
                 <div className={styles.Container}>
                     <form className={styles.Form} style={{ textAlign: 'center' }}>

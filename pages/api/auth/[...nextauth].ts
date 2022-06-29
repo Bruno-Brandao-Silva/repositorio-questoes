@@ -47,7 +47,7 @@ export default async function NextA(req: NextApiRequest, res: NextApiResponse) {
                 //signOut: '/auth/signout',
                 error: '/', // Error code passed in query string as ?error=
                 //verifyRequest: '/auth/verify-request', // (used for check email message)
-                //newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
+                newUser: '/profile' // New users will be directed here on first sign in (leave the property out if not of interest)
             },
         })
     })
