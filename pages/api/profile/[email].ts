@@ -1,15 +1,15 @@
 import { ObjectId } from 'mongodb'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { getSession } from 'next-auth/react'
 import Account from '../../../models/profile'
 
-export default async function profileHandler(request: NextApiRequest, response: NextApiResponse) {
-
-    const email = request.query.email.toString()
+export default async function profileHandler(req: NextApiRequest, res: NextApiResponse) {
+    const session = await getSession({ req })
+    const email = req.query.email ? req.query.email.toString() : session!.user!.email!
     const filtered = await new Account(undefined, email).findOne()
-
     if (filtered) {
-        response.status(200).json(filtered)
+        res.status(200).json(filtered)
     } else {
-        response.status(404).json({ message: `Perfil com o email: ${email} não encontrado.` })
+        res.status(404).json({ message: `Perfil com o email: ${email} não encontrado.` })
     }
 }

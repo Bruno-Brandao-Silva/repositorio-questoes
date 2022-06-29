@@ -1,10 +1,7 @@
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import useSWR from 'swr'
-import DefaultHead from '../../components/DefaultHead'
-import Header from '../../components/Header'
 import InfinityLoading from '../../components/InfinityLoading'
-import QuestionComponent from '../../components/Question'
 
 const fetcher = async (url: string) => {
   const res = await fetch(url)
@@ -25,23 +22,17 @@ export default function Question() {
 
   if (error) {
     return <>
-      <DefaultHead />
-      <Header />
       <h1>Error</h1>
       <p>{error.message}</p>
     </>
   }
   if (!data) {
     return <>
-      <DefaultHead />
-      <Header />
       <InfinityLoading active={true} />
     </>
   }
   return (
     <>
-      <DefaultHead />
-      <Header />
       {/* <QuestionComponent question={data} /> */}
     </>
   )

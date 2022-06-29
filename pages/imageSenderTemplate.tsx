@@ -1,8 +1,6 @@
 import type { NextPage } from 'next'
 import { useState } from 'react'
 
-
-
 const Test: NextPage = () => {
     const [imageInput, setImageInput] = useState("")
     const [imageFiles, setImageFiles] = useState<FileList>()

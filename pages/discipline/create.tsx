@@ -1,10 +1,5 @@
-import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { useState } from 'react'
-import useSWR from 'swr'
-import DefaultHead from '../../components/DefaultHead'
 import DisciplineComponent from '../../components/Discipline'
-import Header from '../../components/Header'
 import InfinityLoading from '../../components/InfinityLoading'
 import styles from '../../styles/DisciplineCad.module.css'
 
@@ -85,8 +80,6 @@ export default function Create() {
     }
     return (
         <>
-            <DefaultHead />
-            <Header />
             <InfinityLoading active={status} />
             <section className={styles.Section}>
                 <div className={styles.Container}>

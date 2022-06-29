@@ -2,7 +2,6 @@ import { NextComponentType } from "next";
 import Link from "next/link";
 import styles from "../styles/AccountInfo.module.css"
 import { useSession, signIn, signOut } from "next-auth/react"
-import { useEffect } from "react";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 
@@ -19,7 +18,7 @@ const AccountInfo: NextComponentType = () => {
     const router = useRouter()
     const { data: session, status } = useSession()
     const user: any = session?.user
-    const { data, error } = useSWR(() => user.email && `/api/profile/${user.email}`, fetcher)
+    const { data, error } = useSWR(`/api/profile`, fetcher)
     if (data && router.asPath !== "/profile") {
         if (data === 404) { router.push('/profile') }
     }
@@ -31,7 +30,7 @@ const AccountInfo: NextComponentType = () => {
                         <img className={styles.ProfileImg} alt="Profile" src={session?.user?.image!}></img>
                     </div>
                     <div className={styles.AccountBtn}>
-                        <Link href='/perfil'><a className={styles.RegisterBtn}>Perfil</a></Link>
+                        <Link href='/profile'><a className={styles.RegisterBtn}>Perfil</a></Link>
                         <div className={styles.SeparatorBar} >|</div>
                         <a className={styles.LoginBtn} onClick={() => signOut()}>Sair</a>
                     </div>

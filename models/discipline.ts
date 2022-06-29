@@ -50,7 +50,9 @@ export default class Discipline {
     async updateMany(discipline = this, newDiscipline: Discipline) {
         return await database.updateMany(collection, discipline, newDiscipline)
     }
-
+    async replaceOne(discipline = this, newDiscipline: Discipline) {
+        return await database.replaceOne(collection, discipline, newDiscipline)
+    }
     async deleteOne(discipline = this) {
         return await database.deleteOne(collection, discipline)
     }

@@ -27,7 +27,7 @@ export default class Profile {
 
     async findOne(profile = this) {
         return await database.findOne(collection, profile).then((result) => {
-            if (result) return new Profile(result._id, result.name, result.role)
+            if (result) return new Profile(result._id, result.email, result.name, result.role)
         })
     }
 
@@ -36,19 +36,23 @@ export default class Profile {
             if (result) {
                 let _result: any = []
                 result.forEach(element => {
-                    _result.push(new Profile(element._id, element.name, element.role))
+                    _result.push(new Profile(element._id, element.email, element.name, element.role))
                 });
                 return _result;
             }
         })
     }
 
-    async updateOne(profile = this, newProfile: Profile) {
-        return await database.updateOne(collection, profile, newProfile)
+    async updateOne(newProfile: Profile) {
+        return await database.updateOne(collection, this, newProfile)
     }
 
     async updateMany(profile = this, newProfile: Profile) {
         return await database.updateMany(collection, profile, newProfile)
+    }
+
+    async replaceOne(newProfile: Profile) {
+        return await database.replaceOne(collection, this, newProfile)
     }
 
     async deleteOne(profile = this) {

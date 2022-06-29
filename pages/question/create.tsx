@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import DefaultHead from '../../components/DefaultHead'
-import Header from '../../components/Header'
 import InfinityLoading from '../../components/InfinityLoading'
 import styles from '../../styles/QuestionCad.module.css'
 import { server } from '../../config'
@@ -124,8 +122,6 @@ export default function Create({ disciplines }: any) {
 
     return (
         <>
-            <DefaultHead />
-            <Header />
             <InfinityLoading active={status} />
             <section className={styles.Section}>
                 <div className={styles.Container}>

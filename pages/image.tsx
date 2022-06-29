@@ -4,8 +4,6 @@ import Header from '../components/Header'
 import { server } from '../config'
 import styles from '../styles/Image.module.css'
 
-const fetcher = async (url: string) => await fetch(url).then((res) => res.json())
-
 const ImagePage: NextPage = ({ data }: any) => {
     const page: any = []
     var images: any = []
@@ -20,8 +18,6 @@ const ImagePage: NextPage = ({ data }: any) => {
         page.push(<div key={data.length} className={styles.Page}>{images}</div>)
     }
     return (<>
-        <DefaultHead />
-        <Header />
         <h1>Imagens</h1>
         <div className={styles.ImageContainer}>
             {page}
