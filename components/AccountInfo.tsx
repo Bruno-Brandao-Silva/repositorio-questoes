@@ -18,10 +18,10 @@ const AccountInfo: NextComponentType = () => {
     const router = useRouter()
     const { data: session, status } = useSession()
     const user: any = session?.user
-    const { data, error } = useSWR(`/api/profile`, fetcher)
-    if (data && router.asPath !== "/profile") {
-        if (data === 404) { router.push('/profile') }
-    }
+    // const { data, error } = useSWR(`/api/profile`, fetcher)
+    // if (data && router.asPath !== "/profile") {
+    //     if (data === 404) { router.push('/profile') }
+    // }
     if (session && status === "authenticated") {
         return (
             <>
@@ -34,9 +34,9 @@ const AccountInfo: NextComponentType = () => {
                         <div className={styles.SeparatorBar} >|</div>
                         <a className={styles.LoginBtn} onClick={() => signOut()}>Sair</a>
                     </div>
-                    <div style={{ position: "fixed", bottom: 0, right: 15 + 'px' }}>
+                    {/* <div style={{ position: "fixed", bottom: 0, right: 15 + 'px' }}>
                         Conectado como {JSON.stringify(session?.user)}
-                    </div>
+                    </div> */}
                 </div>
             </>
         )

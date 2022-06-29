@@ -105,3 +105,8 @@
 .NavBarUl:hover {
 	background-color: rgba(0, 0, 0, 0.203);
 }
+
+.ActiveLink {
+	text-decoration: underline;
+	background-color: rgba(0, 0, 0, 0.203);
+}
