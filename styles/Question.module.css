@@ -1,7 +1,100 @@
-.Container{
+.Container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    background-color: rgb(103, 103, 30);
+    background-color: rgba(215, 215, 215, 1);
+    padding-top: 1.5rem;
     margin-left: 10rem;
     margin-right: 10rem;
+    box-shadow: 0px 0px 10px rgb(0, 0, 0);
+    color: black;
+}
+
+.Container button {
+    padding-left: 4rem;
+    padding-right: 4rem;
+}
+
+.Container a {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.Discipline {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    padding-right: 3rem;
+    width: fit-content;
+    margin: auto;
+    background-color: rgba(55, 59, 69, 1);
+    border-radius: 1rem;
+    color: white;
+
+}
+
+.Discipline img {
+    background-color: white;
+    width: 7rem;
+    border-radius: 1rem 0 0 1rem;
+
+}
+
+.Discipline h1 {
+    margin: 0;
+}
+
+.Question {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+}
+
+.Question h1 {
+    text-align: center;
+}
+
+.Question h3 {
+    text-align: justify;
+}
+
+.Question p {
+    text-align: justify;
+}
+
+.ImageContainer {
+    margin: auto;
+    width: fit-content;
+}
+
+.ImageContainer p {
+    text-align: center;
+}
+
+.Question img {
+    width: 25rem;
+    margin: auto;
+}
+
+.Answers {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: justify;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+}
+
+.Answers a {
+    text-align: center;
+    padding-bottom: 2rem;
+}
+
+.Resolution {
+    padding: 2.5rem;
+}
+
+.Resolution p {
+    text-align: justify;
 }
